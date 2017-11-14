@@ -1,0 +1,35 @@
+@import './variables.css';
+
+html, body {
+  font-family: var(--font-family-base);
+}
+
+body {
+  background-color: var(--background-color);
+  font-size: var(--font-size-base);
+}
+
+a {
+  font-weight: 300;
+}
+
+pre {
+  border-left: 5px solid #5F769F;
+  background-color: #F4F7FF;
+  color: #45526A;
+  padding: 5px 15px;
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+:global {
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(173, 173, 173, .3);
+    max-width: 960px;
+    min-width: 660px;
+  }
+}

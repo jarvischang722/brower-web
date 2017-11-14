@@ -1,0 +1,17 @@
+:root {
+  --font-family-base: "Alright Sans LP", "Avenir Next", "Helvetica Neue", Helvetica, Arial, "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi MicroHei", sans-serif;
+
+  --font-size-base: 14px;
+
+  --background-color: #fff;
+
+  --success-color: #19ae54;
+  --error-color: #f7615e;
+  --warning-color: #ffab00;
+
+  --text-color: #525866;
+  --text-darken-color: color(var(--text-color) blackness(+25%));
+  --text-dark-color: color(var(--text-color) blackness(+10%));
+
+  --border-color: #e6e9f0;
+}

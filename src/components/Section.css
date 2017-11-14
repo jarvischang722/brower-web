@@ -1,0 +1,58 @@
+.container {
+  padding: 1px 0;
+  &.compress {
+    > .title {
+      padding-top: 0;
+    }
+    > .content {
+      padding-top: 0;
+    }
+  }
+  &.noneline {
+    > .title {
+      border-bottom: none;
+    }
+  }
+  &.dashedline {
+    > .title {
+      border-style: dashed;
+    }
+  }
+  &.bold {
+    > .title {
+      font-weight: bold;
+    }
+  }
+  &.small {
+    > .title {
+      font-size: 14px;
+    }
+  }
+  &.normal {
+    > .title {
+      font-size: 17px;
+    }
+  }
+  &.large {
+    > .title {
+      font-size: 23px;
+    }
+  }
+}
+
+.title {
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  font-weight: 700;
+  padding: 14px 0 8px 0;
+}
+
+.tail {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.content {
+  padding-top: 20px;
+  padding-bottom: 16px;
+}

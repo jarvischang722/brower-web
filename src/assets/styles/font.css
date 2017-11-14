@@ -1,0 +1,189 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 211305 */
+  src: url('//at.alicdn.com/t/font_sqnvtuck7fei2j4i.eot');
+  src: url('//at.alicdn.com/t/font_sqnvtuck7fei2j4i.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_sqnvtuck7fei2j4i.woff') format('woff'),
+  url('//at.alicdn.com/t/font_sqnvtuck7fei2j4i.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_sqnvtuck7fei2j4i.svg#iconfont') format('svg');
+}
+
+:global {
+  .sicon {
+    display: inline-block;
+    font-style: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1;
+  }
+
+  .sicon:before {
+    font-family: "iconfont" !important;
+  }
+
+  .sicon.sicon-middle {
+    vertical-align: middle;
+  }
+
+  .icon-appreciate:before { content: "\e644"; }
+
+  .icon-phone1:before { content: "\e652"; }
+
+  .icon-discover:before { content: "\e67e"; }
+
+  .icon-filter:before { content: "\e69c"; }
+
+  .icon-delete-fill:before { content: "\e6a6"; }
+
+  .icon-qrcode:before { content: "\e6b0"; }
+
+  .icon-discover-fill:before { content: "\e6ba"; }
+
+  .icon-selection:before { content: "\e6ce"; }
+
+  .icon-appreciate-fill:before { content: "\e6e3"; }
+
+  .icon-countdown:before { content: "\e708"; }
+
+  .icon-private:before { content: "\e63f"; }
+
+  .icon-food:before { content: "\e7b7"; }
+
+  .icon-add:before { content: "\e775"; }
+
+  .icon-attachment:before { content: "\e776"; }
+
+  .icon-close:before { content: "\e779"; }
+
+  .icon-costincluded:before { content: "\e77a"; }
+
+  .icon-costnotincluded:before { content: "\e77b"; }
+
+  .icon-ensure:before { content: "\e77f"; }
+
+  .icon-guidepost:before { content: "\e781"; }
+
+  .icon-help:before { content: "\e782"; }
+
+  .icon-down:before { content: "\e78a"; }
+
+  .icon-enter:before { content: "\e78b"; }
+
+  .icon-me:before { content: "\e792"; }
+
+  .icon-me-fill:before { content: "\e793"; }
+
+  .icon-process:before { content: "\e795"; }
+
+  .icon-search:before { content: "\e797"; }
+
+  .icon-ship:before { content: "\e798"; }
+
+  .icon-add-circle:before { content: "\e799"; }
+
+  .icon-map:before { content: "\e79b"; }
+
+  .icon-email:before { content: "\e79c"; }
+
+  .icon-refresh:before { content: "\e7a1"; }
+
+  .icon-refund:before { content: "\e7a2"; }
+
+  .icon-selectseat:before { content: "\e7a3"; }
+
+  .icon-switch:before { content: "\e7a4"; }
+
+  .icon-ticket:before { content: "\e7a5"; }
+
+  .icon-time:before { content: "\e7a6"; }
+
+  .icon-timetable:before { content: "\e7a7"; }
+
+  .icon-up:before { content: "\e7a8"; }
+
+  .icon-vacation:before { content: "\e7a9"; }
+
+  .icon-calendar:before { content: "\e7af"; }
+
+  .icon-collect:before { content: "\e7b1"; }
+
+  .icon-endorse:before { content: "\e7b4"; }
+
+  .icon-failed-circle:before { content: "\e7b6"; }
+
+  .icon-hint:before { content: "\e7b9"; }
+
+  .icon-information-circle:before { content: "\e7bb"; }
+
+  .icon-loaction:before { content: "\e7c0"; }
+
+  .icon-more-circle:before { content: "\e7c2"; }
+
+  .icon-phone:before { content: "\e7c7"; }
+
+  .icon-reduce-circle:before { content: "\e7c9"; }
+
+  .icon-scan:before { content: "\e7cc"; }
+
+  .icon-setting:before { content: "\e7cd"; }
+
+  .icon-diamond:before { content: "\e7d2"; }
+
+  .icon-success-circle:before { content: "\e7da"; }
+
+  .icon-message:before { content: "\e7e6"; }
+
+  .icon-shape-events:before { content: "\e7ef"; }
+
+  .icon-shape-castle:before { content: "\e7f1"; }
+
+  .icon-shape-crown:before { content: "\e7f2"; }
+
+  .icon-shape-users:before { content: "\e7fd"; }
+
+  .icon-shape-favorite:before { content: "\e7fe"; }
+
+  .icon-shape-meditation:before { content: "\e7ff"; }
+
+  .icon-shape-ship:before { content: "\e803"; }
+
+  .icon-shape-book:before { content: "\e809"; }
+
+  .icon-shape-location:before { content: "\e80b"; }
+
+  .icon-shape-feedback:before { content: "\e811"; }
+
+  .icon-shape-transport:before { content: "\e813"; }
+
+  .icon-shape-tickets:before { content: "\e822"; }
+
+  .icon-success-fill:before { content: "\e82b"; }
+
+  .icon-list:before { content: "\e82f"; }
+
+  .icon-image:before { content: "\e830"; }
+
+  .icon-back:before { content: "\e833"; }
+
+  .icon-delete:before { content: "\e836"; }
+
+  .icon-exit:before { content: "\e601"; }
+
+  .icon-select-filter:before { content: "\e84a"; }
+
+  .icon-select-location:before { content: "\e84d"; }
+
+  .icon-methods:before { content: "\e850"; }
+
+  .icon-recommend-fill:before { content: "\e852"; }
+
+  .icon-more:before { content: "\e85c"; }
+
+  .icon-select-date:before { content: "\e85e"; }
+
+  .icon-health:before { content: "\e6c2"; }
+}

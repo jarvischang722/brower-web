@@ -1,0 +1,205 @@
+:global {
+  .giant {
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .form-tabs {
+    margin-top: 10px;
+    .ant-tabs-nav-container {
+      font-size: 17px;
+      font-weight: 300;
+    }
+  }
+
+  .stext {
+    font-size: 17px;
+    margin: 15px 20px 10px 0;
+    display: inline-block;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: #f50;
+  }
+
+  .highlight-success {
+    color: #19ae54;
+  }
+
+  .highlight-background {
+    background-color: #f50;
+    color: #fff;
+    padding: 1px 2px;
+  }
+
+  .sm {
+    font-size: 12px;
+  }
+
+  .ant-form {
+    .ant-form-item-wrapper {
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+      padding-top: 10px;
+      &.noline {
+        border-bottom: 0;
+      }
+      &.compress {
+        padding-top: 0;
+      }
+      .ant-btn-lg {
+        height: 31px;
+      }
+    }
+    .ant-form-item {
+      * {
+        font-size: 13px;
+      }
+      margin-bottom: 10px;
+      &.ant-form-item-with-help {
+        margin-bottom: 0;
+        padding-bottom: 5px;
+      }
+      &.compress {
+        margin-bottom: 0;
+      }
+    }
+    .compress .ant-form-item {
+      margin-bottom: 0;
+    }
+    .ant-input-number {
+      width: 100%;
+    }
+    .ant-checkbox, .ant-radio {
+      top: -3px;
+    }
+    &.readonly {
+      .ant-form-item {
+        margin-bottom: 0;
+      }
+    }
+    .ant-form-item-label {
+      text-align: left;
+      padding-left: 20px;
+      width: 175px;
+      .ant-form-item-required {
+        margin-left: -10px;
+      }
+      label {
+        color: #999;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .ant-tabs-bar {
+    border-color: #e6e7eb;
+  }
+
+  /* .ant-table-small .ant-table-title {
+    background-color: #e4f1ff;
+  } */
+
+  .ant-table-title .ant-tag {
+    overflow: hidden;
+    height: 35px;
+    line-height: 33px;
+    font-size: 13px;
+    padding: 0 15px;
+
+    .anticon-cross {
+      margin-left: 15px;
+      margin-right: -5px;
+    }
+    .tag-prefix {
+      background-color: #e4e4e4;
+      margin-left: -15px;
+      padding: 8px 15px;
+      margin-right: 12px;
+      color: #666;
+    }
+    /* &.closable {
+      background-color: #108ee9;
+      color: #fff;
+      .anticon-cross {
+        color: #fff;
+      }
+      .tag-prefix {
+        background-color: #0973bf;
+        color: #fff;
+      }
+    } */
+  }
+
+  .ant-select-selection-selected-value {
+    width: 100%;
+  }
+
+  .ant-confirm-body>.anticon {
+    position: absolute;
+  }
+
+  .ant-confirm-body .ant-confirm-title {
+    font-size: 16px;
+    display: block;
+    padding-left: 40px;
+  }
+
+  .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+    padding: 8px 20px 8px 12px;
+  }
+
+  .ant-table-filter-dropdown * {
+    font-size: 13px;
+  }
+
+  .ant-tabs-tab-btn-disabled {
+    display: none;
+  }
+
+  .filterDropdown {
+    border-radius: 4px;
+    width: 210px;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+    :global .confirm {
+      position: absolute;
+      right: 80px;
+    }
+    * {
+      font-size: 13px;
+    }
+  }
+
+  .filterDropdownContent {
+    padding: 16px;
+    :global .ant-radio-group {
+      margin-bottom: 10px;
+    }
+  }
+
+  .monospace, .ant-input-number-input {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  .ant-table-thead > tr > th {
+    &.align-right {
+      text-align: right;
+    }
+    &.align-center {
+      text-align: center;
+    }
+  }
+}
