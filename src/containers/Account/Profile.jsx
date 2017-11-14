@@ -2,8 +2,6 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { UserActions } from '../../actions'
-import Agent from '../Subordinate/Agent/Profile'
-import Company from '../Subordinate/Company/Profile'
 
 @connect(
   ({ user }) => ({
@@ -17,8 +15,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { user } = this.props
-    const Component = user.role > 1 ? Agent : Company
-    return <Component {...this.props} />
+    return null
   }
 }
