@@ -1,0 +1,49 @@
+.container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 130px;
+  z-index: 999;
+  background-color: #7a8599;
+
+  nav {
+    padding: 0 0 60px 0;
+    width: 130px;
+    li {
+      padding-left: 5px;
+      a {
+        padding: 14px 0 14px 18px;
+        color: #fff;
+        display: block;
+        i {
+          margin-right: 8px;
+          font-size: 16px;
+        }
+      }
+      &.active {
+        background-color: #fff;
+        border-left: 5px solid #555a61;
+        padding-left: 0;
+        a {
+          text-decoration: none;
+          color: #525866 !important;
+        }
+      }
+    }
+  }
+}
+
+.logoWrapper {
+  display: block;
+  height: 130px;
+  overflow: hidden;
+}
+
+.logo {
+  width: 130px;
+  height: 130px;
+  background-size: cover;
+  background-image: url('/assets/images/logo.jpg');
+  background-color: darkblue;
+}
