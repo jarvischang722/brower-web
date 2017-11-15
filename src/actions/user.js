@@ -5,44 +5,50 @@ import syncState from './lib/syncState'
 
 const name = 'user'
 
-const $logout = constructAsyncActionTypes(`${name}/LOGOUT`)
 const $profile = constructAsyncActionTypes(`${name}/PROFILE`)
+const $LOGOUT = `${name}/LOGOUT`
 const $SYNC_STATUS = `${name}/SYNC_STATUS`
 
 const types = [
-  $logout,
   $profile,
+  $LOGOUT,
   $SYNC_STATUS,
 ]
 
 const login = (username, password) =>
   dispatch(
-    api.post('/auth/login', { username, password }).then(
-      () =>
-        $profile.async(
-          api.get('/profile')
+    api.post('/user/login', { username, password }).then(
+      ({ body }) => {
+        if (localStorage) localStorage.setItem('t1bw_token', body.token)
+        return $profile.async(
+          api.get('/user/profile')
         )
+      }
     )
   )
 
 const recurrent = (reloadProfile) =>
   dispatch(
-    api.get('/auth/recurrent').then(
-      () =>
-        reloadProfile &&
-        $profile.async(
-          api.get('/profile')
-        )
+    api.get('/user/recurrent').then(
+      ({ body }) => {
+        if (localStorage) localStorage.setItem('t1bw_token', body.token)
+        if (reloadProfile) {
+          return $profile.async(
+            api.get('/user/profile')
+          )
+        }
+        return false
+      }
     ),
     { silent: true }
   )
 
-const logout = () =>
-  dispatch(
-    $logout.async(
-      api.get('/auth/logout')
-    )
+const logout = () => {
+  if (localStorage) localStorage.removeItem('t1bw_token')
+  return dispatch(
+    syncState($LOGOUT, null)
   )
+}
 
 const changePassword = (oldPassword, password) =>
   dispatch(
@@ -60,14 +66,14 @@ const changePassword = (oldPassword, password) =>
 const profile = () =>
   dispatch(
     $profile.async(
-      api.get('/profile')
+      api.get('/user/profile')
     )
   )
 
 const update = (data) =>
   dispatch(
     $profile.async(
-      api.post('/profile', data)
+      api.post('/user/profile', data)
     )
   )
 
