@@ -113,6 +113,9 @@ export default {
     agent: 'agent',
     client: 'client',
   },
+  browser: {
+    title: 'browser',
+  },
   weeks: {
     0: 'Sunday',
     1: 'Monday',

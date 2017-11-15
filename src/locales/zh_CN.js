@@ -112,6 +112,9 @@ export default {
     agent: '代理',
     client: '客户',
   },
+  browser: {
+    title: '浏览器',
+  },
   weeks: {
     0: '星期日',
     1: '星期一',
