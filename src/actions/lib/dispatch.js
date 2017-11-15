@@ -3,7 +3,9 @@ import is from '../../utils/is'
 
 export default (action, { success, silent } = {}) =>
   (dispatch) => {
-    const promise = is.promise(action) ? action : dispatch(action)
+    const promise = is.promise(action) ?
+      action :
+      new Promise((resolve) => resolve(action))
     return promise
       .then(
         (response) => {
