@@ -62,7 +62,7 @@ export default class Wrapper extends React.Component {
     this.mounted = false
   }
 
-  updateLocale = (language = 'zh_CN') => {
+  updateLocale = (language = 'en') => {
     if (this.language !== language) {
       this.language = language
       this.setState({ locale: antLocales[language] })
@@ -90,7 +90,7 @@ export default class Wrapper extends React.Component {
   redirectToDefaultComponent() {
     const { user } = this.props
     const { router } = this.context
-    if (router.location.pathname === '/') router.replace(user.role < 2 ? '/agents' : '/games')
+    if (router.location.pathname === '/') router.replace(user.role < 2 ? '/agents' : '/browser')
   }
 
   render() {
