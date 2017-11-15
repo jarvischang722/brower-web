@@ -5,15 +5,8 @@ import { Link } from 'react-router'
 import { Breadcrumb, Dropdown, Icon } from 'antd'
 import withStyles from '../../decorators/withStyles'
 import s from './Upper.css'
-import { currencies } from '../../constant'
 
 const BreadcrumbItem = Breadcrumb.Item
-
-const formatCurrency = (currency, amount) => {
-  const c = currencies.find(({ value }) => value === currency)
-  const symbol = c ? c.symbol : ''
-  return `${symbol}${amount ? amount.toFixed(4) : amount}`
-}
 
 @connect(
   ({ user }) => ({
@@ -51,31 +44,13 @@ export default class Upper extends React.Component {
     )
   }
 
-  renderOverlay() {
-    const { user } = this.props
+  renderOverlay = () => {
     const links = []
-    links.push(<Link to="/account"><Icon type="user" />{i18n.t('account.profile')}</Link>)
-    if (user.role > 0) links.push(<Link to="/account/keys"><Icon type="key" />{i18n.t('account.keys')}</Link>)
-    if (user.role > 1) links.push(<Link to="/account/player_settings"><Icon type="team" />{i18n.t('account.player_settings')}</Link>)
-    links.push(<Link to="/account/security"><Icon type="safety" />{i18n.t('account.security')}</Link>)
-    const count = links.length
+    // links.push(<Link to="/profile"><Icon type="user" />{i18n.t('account.profile')}</Link>)
+    // links.push(<Link to="/account/security"><Icon type="safety" />{i18n.t('account.security')}</Link>)
+    const count = links.length || 1
     return (
       <div className={s.overlay} style={{ width: (count * 100 + 2) + (4 - count) * 10 }}>
-        {
-          user.role > 1 &&
-          <div className={s.board}>
-            <div className={s.profile}>
-              <div>{user.username}</div>
-              <div>{user.name}</div>
-              <div className={s.balance}>
-                {i18n.t('finance.balance')}:
-                <span className="monospace" style={{ marginLeft: 10 }}>
-                  {formatCurrency(user.currency[0], user.balance)}
-                </span>
-              </div>
-            </div>
-          </div>
-        }
         <div className={s.cards}>{links}</div>
         <div className={s.exit}>
           <Link to="/logout">

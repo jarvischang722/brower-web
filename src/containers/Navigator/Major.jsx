@@ -51,7 +51,9 @@ export default class MajorNavigator extends React.Component {
     return (
       <div className={s.container}>
         <div className={s.logoWrapper}>
-          <div className={s.logo} />
+          <div className={s.logo}>
+            Browser Web
+          </div>
         </div>
         <nav>
           <ul>

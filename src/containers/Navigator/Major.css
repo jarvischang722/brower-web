@@ -36,14 +36,17 @@
 
 .logoWrapper {
   display: block;
-  height: 130px;
+  height: 80px;
   overflow: hidden;
 }
 
 .logo {
   width: 130px;
-  height: 130px;
-  background-size: cover;
-  background-image: url('/assets/images/logo.jpg');
-  background-color: darkblue;
+  height: 80px;
+  background-color: rgb(173, 120, 72);
+  color: #fff;
+  line-height: 30px;
+  font-size: 20px;
+  padding: 10px;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
