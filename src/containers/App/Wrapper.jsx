@@ -90,8 +90,7 @@ export default class Wrapper extends React.Component {
   redirectToDefaultComponent() {
     const { user } = this.props
     const { router } = this.context
-    if (user.status !== 2) router.replace('/account/security/password')
-    else if (router.location.pathname === '/') router.replace(user.role < 2 ? '/agents' : '/games')
+    if (router.location.pathname === '/') router.replace(user.role < 2 ? '/agents' : '/games')
   }
 
   render() {
