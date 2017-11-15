@@ -3,22 +3,21 @@ export default function request(opts) {
 
   const $method = opts.method || 'GET'
   const $headers = Object.assign({
-    'If-None-Match': '"NEVER-CACHE"',
     'X-Requested-With': 'XMLHttpRequest',
-  }, opts.headers)
+  }, opts.headers || {})
   const $body = opts.body
   const $timeout = opts.timeout || 60000
 
   const xhr = new XMLHttpRequest()
   const getHeaders = () =>
     xhr.getAllResponseHeaders().split('\n')
-    .reduce((header, entry) => {
-      const temp = entry.split(': ')
-      const k = temp[0]
-      const v = temp[1]
-      if (k && v) header[k] = v
-      return header
-    }, {})
+      .reduce((header, entry) => {
+        const temp = entry.split(': ')
+        const k = temp[0]
+        const v = temp[1]
+        if (k && v) header[k] = v
+        return header
+      }, {})
 
   const fetch = new Promise((resolve, reject) => {
     xhr.open($method, url, true)
