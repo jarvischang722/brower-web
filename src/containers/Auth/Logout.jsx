@@ -18,9 +18,9 @@ export default class Logout extends React.Component {
 
   componentDidMount() {
     this.props.logout()
-    .then(
-      () => this.context.router.replace('/login')
-    )
+      .then(
+        () => this.context.router.replace('/login')
+      )
   }
 
   render() {
