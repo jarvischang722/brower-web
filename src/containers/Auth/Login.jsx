@@ -86,18 +86,6 @@ export default class Login extends React.Component {
   }
 
   renderForm() {
-    const logo = (
-      <div
-        style={{
-          width: 60,
-          height: 60,
-          backgroundSize: 'cover',
-          backgroundImage: 'url("/assets/images/logo.jpg")',
-          float: 'left',
-          marginRight: 20,
-          marginTop: -15,
-        }} />
-    )
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -107,7 +95,7 @@ export default class Login extends React.Component {
           borderRadius: 10,
           boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.1)',
         }} >
-        <Section title={i18n.t('auth.login')} supplement={logo} bold titleColor="#65799B" line="solid">
+        <Section title="BROWSER WEB" tail={i18n.t('auth.login')} bold titleColor="#ec6565" line="solid">
           <Form.Item {...formItemLayout} >
             {this.field('name')}
           </Form.Item>
