@@ -18,4 +18,4 @@ global.i18n = {
   }
 }
 
-i18n.setLocale('zh_CN')
+i18n.setLocale('en')
