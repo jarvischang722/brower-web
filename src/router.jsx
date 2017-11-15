@@ -15,7 +15,13 @@ export default (
     <Route path="/logout" component={Auth.Logout} />
     <Route path="/" component={App.Wrapper}>
       <IndexRoute component={App.Home} />
-      <Route path="/account" component={Account.Wrapper}>
+      <Route path="/agents" component={App.ContentWrapper} title="agent.title" visible={(user) => user.role === 1}>
+        <IndexRoute component={Account.Profile} />
+      </Route>
+      <Route path="/browser" component={App.ContentWrapper} title="browser.title">
+        <IndexRoute component={Account.Profile} />
+      </Route>
+      <Route path="/profile" component={App.ContentWrapper} title="profile.title">
         <IndexRoute component={Account.Profile} />
       </Route>
       <Route path="*" component={App.ContentWrapper}>
