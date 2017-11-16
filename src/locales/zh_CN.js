@@ -78,6 +78,7 @@ export default {
   agent: {
     title: '子代理',
     name: '子代理',
+    profile: '用户信息',
     filters: {
       search: '账号或名称包含',
     },
@@ -105,6 +106,9 @@ export default {
     title: '账号信息',
     name: '名称',
     role: '账户类型',
+    expire_in: '过期时间',
+    icon: '图标',
+    home_url: '主页地址',
   },
   role: {
     title: '账户类型',

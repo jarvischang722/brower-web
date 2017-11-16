@@ -79,6 +79,7 @@ export default {
   agent: {
     title: 'agents',
     name: 'agent',
+    profile: 'profile',
     filters: {
       search: 'name included',
     },
@@ -106,6 +107,9 @@ export default {
     title: 'profile',
     name: 'name',
     role: 'role',
+    expire_in: 'expire in',
+    icon: 'icon',
+    home_url: 'home URLs',
   },
   role: {
     title: 'role',
