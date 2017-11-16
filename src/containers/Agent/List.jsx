@@ -110,7 +110,7 @@ export default class List extends React.Component {
     return (
       <Section noline compress>
         <Link to="/agents/new" className="stext">
-          <i className="sicon icon-add-circle" /> {i18n.t('actions.add + agent.name')}
+          <i className="sicon icon-add-circle" /> {i18n.t('actions.add')}
         </Link>
         <ListControl
           columns={this.getColumns()}
