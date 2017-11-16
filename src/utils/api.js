@@ -1,23 +1,22 @@
 import url from 'url'
 import { json } from './request'
 
-let basename
+const api = {}
 
 const resolve = (path) =>
   new Promise((r) => {
-    if (!basename) {
+    if (!api.basename) {
       json.get('/assets/config.json').then(
         ({ body }) => {
-          basename = body.api
-          r(url.resolve(basename, path))
+          api.basename = body.api
+          r(url.resolve(api.basename, path))
         }
       )
     } else {
-      r(url.resolve(basename, path))
+      r(url.resolve(api.basename, path))
     }
   })
 
-const api = {}
 
 json.methods.forEach((method) => {
   api[method] =
