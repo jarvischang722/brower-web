@@ -50,19 +50,6 @@ const logout = () => {
   )
 }
 
-const changePassword = (oldPassword, password) =>
-  dispatch(
-    api.post('/auth/changepassword', { oldPassword, password }).then(
-      ({ body }) => {
-        const { status } = body
-        return syncState($SYNC_STATUS, body, {
-          status: { $set: status }
-        })
-      }
-    ),
-    { success: i18n.t('auth.message.password_changed') }
-  )
-
 const profile = () =>
   dispatch(
     $profile.async(
@@ -84,7 +71,6 @@ export default {
     login,
     recurrent,
     logout,
-    changePassword,
     profile,
     update,
   },
