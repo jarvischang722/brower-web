@@ -17,6 +17,10 @@
     margin: 15px 20px 10px 0;
     display: inline-block;
     font-weight: 300;
+    text-transform: uppercase;
+    .sicon {
+      margin-right: 6px;
+    }
   }
 
   .highlight {
