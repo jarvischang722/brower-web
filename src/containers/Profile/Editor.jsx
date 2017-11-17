@@ -2,10 +2,12 @@ import url from 'url'
 import React from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router'
-import { Form, Input, Select, Button, Row, Col } from 'antd'
+import { Form, Input, Select, DatePicker, Upload, Button, Row, Col } from 'antd'
 import moment from 'moment'
 import { WrappedFormItem } from '../../components'
 import { roles, formLayout } from '../../constant'
+import withStyles from '../../decorators/withStyles'
+import s from './Editor.css'
 import api from '../../utils/api'
 
 const Option = Select.Option
@@ -13,6 +15,7 @@ const { TextArea } = Input
 
 const { formItemLayout } = formLayout
 
+@withStyles(s)
 @Form.create()
 export default class Profile extends React.Component {
   static propTypes = {
@@ -28,18 +31,19 @@ export default class Profile extends React.Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault()
+    if (e && e.preventDefault) e.preventDefault()
     const { submitting, initialValues } = this.state
     if (submitting) return
     const { form, save } = this.props
     form.validateFieldsAndScroll({ scroll: { offsetTop: 120 } }, (err, values) => {
       if (!err) {
-        const { name, homeUrl, icon } = values
+        const { name, homeUrl } = values
         const data = {}
         data.id = initialValues.id
         data.name = name || initialValues.name
         data.homeUrl = homeUrl ? homeUrl.split('\n').filter(l => !!l) : initialValues.homeUrl
-        data.icon = icon || initialValues.icon
+        data.icon = e.file || initialValues.icon
+        data.isFormData = !!e.file
         this.setState({ submitting: true })
         save(data)
           .then(
@@ -48,6 +52,7 @@ export default class Profile extends React.Component {
                 initialValues.name = response.name
                 initialValues.homeUrl = response.homeUrl
                 initialValues.icon = response.icon
+                this.state.icon = undefined
               }
               this.setState({ editing: '', submitting: false })
             }
@@ -62,6 +67,7 @@ export default class Profile extends React.Component {
   field = (name) => {
     const { form } = this.props
     const rules = []
+    const props = {}
     let initialValue = this.state.initialValues[name]
     let component
     switch (name) {
@@ -90,7 +96,7 @@ export default class Profile extends React.Component {
         component = <Input size="large" />
         break
       case 'homeUrl':
-        rules.push({ required: true, message: i18n.t('profile.validation.homeUrl_required') })
+        rules.push({ required: true, message: i18n.t('profile.validation.home_url_required') })
         initialValue = initialValue ? initialValue.join('\n') : ''
         component = (
           <TextArea
@@ -104,9 +110,25 @@ export default class Profile extends React.Component {
             style={{ whiteSpace: 'pre', fontSize: 13 }} />
         )
         break
+      case 'expireIn':
+        initialValue = initialValue ? moment(initialValue) : undefined
+        component = (
+          <DatePicker />
+        )
+        break
       default:
     }
-    return form.getFieldDecorator(name, { rules, initialValue })(component)
+    return form.getFieldDecorator(name, { rules, initialValue, ...props })(component)
+  }
+
+  normIconFile = () =>
+    [this.state.icon]
+
+  onSelectIconFile = (icon) => {
+    this.setState({ icon }, () => {
+      this.handleSubmit({ file: icon })
+    })
+    return false
   }
 
   renderRole() {
@@ -125,6 +147,41 @@ export default class Profile extends React.Component {
       </Col>
     </Row>
   )
+
+  renderIcon = () => {
+    const icon = this.state.icon || this.state.initialValues.icon
+    const fileList = []
+    if (icon) {
+      if (icon instanceof File) {
+        fileList.push(icon)
+      } else {
+        const iconUrl = `${url.resolve(api.basename, icon)}?t=${Date.now()}`
+        fileList.push({
+          uid: -1,
+          status: 'done',
+          url: iconUrl,
+          thumbUrl: iconUrl,
+        })
+      }
+    }
+    return (
+      <Upload
+        name="icon"
+        className={s.icon}
+        action="undefined"
+        beforeUpload={this.onSelectIconFile}
+        onPreview={() => false}
+        showUploadList={{ showRemoveIcon: false }}
+        fileList={fileList}
+        listType="picture">
+        {
+          this.state.icon ?
+            <Link style={{ float: 'right', marginTop: 10 }}>{i18n.t('actions.uploading')}</Link> :
+            <Link style={{ float: 'right', marginTop: 10 }} onClick={this.edit('icon')}>{i18n.t('actions.modify')}</Link>
+        }
+      </Upload>
+    )
+  }
 
   renderHomeUrls = (homeUrl) => {
     if (!homeUrl || homeUrl.length === 0) return '-'
@@ -161,14 +218,7 @@ export default class Profile extends React.Component {
       <WrappedFormItem
         {...formItemLayout}
         label={i18n.t('profile.icon')}>
-        {
-          (api.basename && initialValues.icon) ? (
-            <img
-              src={url.resolve(api.basename, initialValues.icon)}
-              alt="icon"
-              style={{ width: 50, height: 50, position: 'absolute', top: -10 }} />
-          ) : '-'
-        }
+        {this.renderIcon()}
       </WrappedFormItem>,
       <WrappedFormItem
         {...formItemLayout}

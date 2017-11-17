@@ -64,6 +64,8 @@ export default {
     reload: 'reload',
     loading: 'loading...',
     loaded: 'loaded',
+    uploading: 'uploading...',
+    uploaded: 'uploaded',
     sync: 'sync',
     syncing: 'syncing...',
     synced: 'synced',

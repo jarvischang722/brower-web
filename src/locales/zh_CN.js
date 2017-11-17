@@ -63,6 +63,8 @@ export default {
     reload: '刷新',
     loading: '加载中...',
     loaded: '已加载',
+    uploading: '上传中...',
+    uploaded: '已上传',
     sync: '同步',
     syncing: '同步中...',
     synced: '已同步',

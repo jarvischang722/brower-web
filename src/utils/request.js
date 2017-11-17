@@ -96,6 +96,23 @@ export default function request(opts) {
   return fetch
 }
 
+const formatFormData = (body) => {
+  if (!body) return undefined
+  const { isFormData, ...rest } = body
+  delete body.isFormData
+  if (!isFormData) return false
+  const data = new FormData()
+  Object.keys(rest).forEach(key => {
+    const value = rest[key]
+    if (Array.isArray(value)) {
+      value.forEach(v => data.append(`${key}[]`, v))
+    } else {
+      data.append(key, rest[key])
+    }
+  })
+  return data
+}
+
 export const json = {
   methods: ['get', 'post', 'put', 'delete', 'options'],
 }
@@ -111,12 +128,14 @@ json.methods.forEach((method) => {
 
     if (!headers) headers = {}
 
-    headers['Content-Type'] = 'application/json'
+    const isFormData = body && body.isFormData
+
+    if (!isFormData) headers['Content-Type'] = 'application/json'
 
     return request(Object.assign({
       url,
       method: method.toUpperCase(),
-      body: JSON.stringify(body),
+      body: formatFormData(body) || JSON.stringify(body),
       headers,
     }, opts))
   }
