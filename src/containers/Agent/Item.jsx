@@ -43,7 +43,7 @@ export default class Item extends React.PureComponent {
     if (!initialValues) return <Loading />
     return (
       <Section title={i18n.t('agent.name+agent.profile').toUpperCase()}>
-        <Editor {...this.props} user={initialValues} />
+        <Editor {...this.props} initialValues={initialValues} />
       </Section>
     )
   }
