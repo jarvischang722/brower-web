@@ -33,8 +33,10 @@ function withChildRoutes(ComposedComponent) {
     }
 
     componentWillMount() {
-      const { route } = this.props
+      this.childRoutes = this.getChildRoutes()
+    }
 
+    getChildRoutes = (route = this.props.route) => {
       let routepath = route.path || '/'
       if (routepath[0] !== '/' && routepath.length > 1) {
         routepath = `/${routepath}`
@@ -42,7 +44,7 @@ function withChildRoutes(ComposedComponent) {
 
       const items = []
       const { indexRoute } = route
-      if (indexRoute) {
+      if (indexRoute && !indexRoute.hideFromNavigation) {
         items.push({
           to: routepath,
           title: indexRoute.title,
@@ -51,28 +53,30 @@ function withChildRoutes(ComposedComponent) {
           scope: route.scope,
           index: indexRoute.index || Number.MAX_INT,
           default: true,
-          visible: indexRoute.visible || is.undefined(indexRoute.visible)
+          visible: indexRoute.visible || is.undefined(indexRoute.visible),
+          badge: indexRoute.badge,
         })
       }
 
       if (route.childRoutes) {
         route.childRoutes.forEach((item) => {
-          items.push({
-            to: item.path ? item.path : routepath,
-            title: item.title,
-            icon: item.icon,
-            scope: route.path === '/' ? item.scope : route.scope,
-            isControl: !!item.isControl,
-            index: item.index || Number.MAX_INT,
-            visible: item.visible || is.undefined(item.visible)
-          })
+          if (!item.hideFromNavigation) {
+            const r = {
+              to: item.path ? item.path : '',
+              title: item.title,
+              icon: item.icon,
+              scope: route.path === '/' ? item.scope : route.scope,
+              isControl: !!item.isControl,
+              index: item.index || Number.MAX_VALUE,
+              visible: item.visible || is.undefined(item.visible),
+              badge: item.badge,
+            }
+            items.push(r)
+            if (!r.to) r.children = this.getChildRoutes(item)
+          }
         })
       }
-      if (items.length === 0) {
-        this.childRoutes = null
-        return
-      }
-      this.childRoutes = items.sort((a, b) => a.index - b.index)
+      return items.length > 0 ? items : null
     }
 
     render() {

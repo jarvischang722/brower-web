@@ -1,5 +1,12 @@
 .container {
   padding: 1px 0;
+  &:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+  }
   &.compress {
     > .title {
       padding-top: 0;
@@ -38,6 +45,29 @@
       font-size: 23px;
     }
   }
+  &.card {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
+    > .title {
+      padding: 15px;
+    }
+  }
+  &.topfix {
+    position: fixed;
+    z-index: 999;
+    top: 50px;
+    left: 130px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+    min-height: 50px;
+    > .title {
+      padding: 15px 28px;
+      position: relative;
+    }
+  }
 }
 
 .title {
@@ -45,6 +75,7 @@
   border-style: solid;
   font-weight: 700;
   padding: 14px 0 8px 0;
+  text-transform: capitalize;
 }
 
 .tail {

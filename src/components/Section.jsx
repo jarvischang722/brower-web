@@ -1,29 +1,40 @@
 import React from 'react'
 import T from 'prop-types'
 import withStyles from '../decorators/withStyles'
-import style from './Section.css'
+import s from './Section.css'
 import { alpha } from '../utils/color'
 
-const getStyle = ({ className, compress, line, bold, size }) => {
-  const styles = [style.container, style[size]]
-  if (compress) styles.push(style.compress)
-  if (line) styles.push(style[`${line}line`])
-  if (bold) styles.push(style.bold)
+const getStyle = ({ className, compress, line, bold, size, topfix, card }) => {
+  const styles = [s.container, s[size]]
+  if (compress) styles.push(s.compress)
+  if (!card || line !== 'none') styles.push(s[`${line}line`])
+  if (bold) styles.push(s.bold)
+  if (topfix) styles.push(s.topfix)
+  else if (card) styles.push(s.card)
   if (className) styles.push(className)
   return styles.join(' ')
 }
 
-const Section = ({ title, supplement, tail, children, titleColor, contentClassName, width, ...styles }) =>
+const Section = ({
+  title,
+  supplement,
+  tail,
+  children,
+  titleColor,
+  contentClassName,
+  width,
+  style,
+  ...styles }) =>
   (
-    <div className={getStyle(styles)}>
+    <div className={getStyle(styles)} style={{ ...style, borderColor: alpha(titleColor, 0.2) }}>
       {
         title &&
-        <div className={style.title} style={{ borderColor: alpha(titleColor, 0.2) }}>
+        <div className={s.title} style={{ borderColor: alpha(titleColor, 0.2) }}>
           <span style={{ color: titleColor }}>{title}</span>
           {supplement}
           {
             tail &&
-            <div className={style.tail}>
+            <div className={s.tail}>
               {tail}
             </div>
           }
@@ -31,7 +42,7 @@ const Section = ({ title, supplement, tail, children, titleColor, contentClassNa
       }
       {
         children &&
-        <div className={`${style.content} ${contentClassName}`} style={{ maxWidth: width || '100%' }}>
+        <div className={`${s.content} ${contentClassName}`} style={{ maxWidth: width || '100%' }}>
           {children}
         </div>
       }
@@ -43,13 +54,16 @@ Section.propTypes = {
   supplement: T.any,
   tail: T.string,
   children: T.any,
-  compress: T.boolean,
+  compress: T.bool,
   line: T.string.oneOf(['none', 'solid', 'dashed']),
-  bold: T.boolean,
+  bold: T.bool,
   size: T.oneOf(['small', 'normal', 'large']),
   titleColor: T.string,
   contentClassName: T.string,
   width: T.number,
+  style: T.object,
+  card: T.bool,
+  topfix: T.bool,
 }
 
 Section.defaultProps = {
@@ -64,6 +78,9 @@ Section.defaultProps = {
   titleColor: '#444',
   contentClassName: '',
   width: null,
+  style: {},
+  card: false,
+  topfix: false,
 }
 
-export default withStyles(style)(Section)
+export default withStyles(s)(Section)

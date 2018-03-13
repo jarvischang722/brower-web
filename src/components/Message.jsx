@@ -1,7 +1,7 @@
 import { message } from 'antd'
 
 message.config({
-  top: 7,
+  top: 3,
 })
 
 function clear() {

@@ -2,7 +2,6 @@ import React from 'react'
 
 function withScripts(scripts) {
   return ComposedComponent => class WithScripts extends React.Component {
-
     state = {
       scripts: {
         ready: false,

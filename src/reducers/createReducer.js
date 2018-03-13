@@ -100,7 +100,12 @@ const createActionMap = (model, actions) => {
           }
           switch (type) {
             case 'SUCCESS': {
-              const { body } = action.payload
+              const { $update } = action.payload
+              if ($update) {
+                newState.data = $update
+                return update(state, newState)
+              }
+              const body = action.payload.body || action.payload.data
               if (action.type.indexOf('/DELETE') !== -1) {
                 if (!body.status) {
                   newState.status = { $set: 'FAILURE' }
@@ -108,7 +113,8 @@ const createActionMap = (model, actions) => {
                   newState.opt = { $set: `${newState.opt.$set}:${body.opt}` }
                 }
               } else {
-                const { meta } = action
+                const meta = action.meta || action.payload.meta
+                if (action.payload.type) newState.opt = { $set: `${newState.opt.$set}:${action.payload.type}` }
                 if (!meta || !processMetaUpdate(state, newState, body, meta)) {
                   if (meta && meta.key) {
                     if (!state.data) newState.data = { $set: { [meta.key]: body } }
@@ -137,7 +143,7 @@ const createReducer = (actions) => {
   const actionMap = createActionMap(name, types)
   const initState = {
     model: name,
-    data: null,
+    data: {},
     status: '',
     error: null,
     opt: '',

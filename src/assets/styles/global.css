@@ -1,7 +1,23 @@
+@import './variables.css';
+
 :global {
   .giant {
     font-size: 36px;
     font-weight: bold;
+  }
+
+  .ant-message, .ant-pagination,
+  .ant-table, .ant-form, .ant-dropdown,
+  .ant-input, .ant-select, .ant-breadcrumb {
+    font-family: var(--font-family-base);
+  }
+
+  .ant-table {
+    font-size: 13px;
+  }
+
+  .ant-checkbox-wrapper, .ant-radio-wrapper {
+    line-height: 20px;
   }
 
   .form-tabs {
@@ -18,13 +34,13 @@
     display: inline-block;
     font-weight: 300;
     text-transform: uppercase;
-    .sicon {
-      margin-right: 6px;
-    }
   }
 
   .highlight {
     color: #f50;
+    &:hover, &:focus {
+      color: rgb(252, 127, 70);
+    }
   }
 
   .highlight-success {
@@ -37,8 +53,22 @@
     padding: 1px 2px;
   }
 
+  .highlight-success-background {
+    background-color: #19ae54;
+    color: #fff;
+    padding: 1px 2px;
+  }
+
   .sm {
     font-size: 12px;
+  }
+
+  .clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
   }
 
   .ant-form {
@@ -59,6 +89,10 @@
       * {
         font-size: 13px;
       }
+      header {
+        font-size: 15px;
+        font-weight: bold;
+      }
       margin-bottom: 10px;
       &.ant-form-item-with-help {
         margin-bottom: 0;
@@ -74,8 +108,8 @@
     .ant-input-number {
       width: 100%;
     }
-    .ant-checkbox, .ant-radio {
-      top: -3px;
+    .ant-form-explain {
+      display: table-cell;
     }
     &.readonly {
       .ant-form-item {
@@ -100,6 +134,11 @@
     border-color: #e6e7eb;
   }
 
+  .ant-tooltip-inner {
+    max-width: 520px;
+    background-color: #333;
+  }
+
   /* .ant-table-small .ant-table-title {
     background-color: #e4f1ff;
   } */
@@ -118,7 +157,7 @@
     .tag-prefix {
       background-color: #e4e4e4;
       margin-left: -15px;
-      padding: 8px 15px;
+      padding: 9px 15px;
       margin-right: 12px;
       color: #666;
     }
@@ -161,6 +200,15 @@
     display: none;
   }
 
+  .ant-radio-button-wrapper-checked {
+    background: #0f8ee9;
+    color: #fff;
+    border-left: 0;
+    &:hover {
+      color: #fff;
+    }
+  }
+
   .filterDropdown {
     border-radius: 4px;
     width: 210px;
@@ -199,6 +247,7 @@
   }
 
   .ant-table-thead > tr > th {
+    padding: 10px 16px;
     &.align-right {
       text-align: right;
     }

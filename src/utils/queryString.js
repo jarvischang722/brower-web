@@ -7,7 +7,7 @@ export default (data) => {
     .filter(key => {
       const value = data[key]
       return !is.undefined(value) &&
-        (!is.array(value) || value.join('') > 0) &&
+        (!is.array(value) || value.join('').length > 0) &&
         (!is.string(value) || value)
     })
     .map(key => {

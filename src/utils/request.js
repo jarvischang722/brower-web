@@ -3,6 +3,7 @@ export default function request(opts) {
 
   const $method = opts.method || 'GET'
   const $headers = Object.assign({
+    'If-None-Match': '"NEVER-CACHE"',
     'X-Requested-With': 'XMLHttpRequest',
   }, opts.headers || {})
   const $body = opts.body

@@ -19,16 +19,10 @@ const resolve = (path) =>
 
 
 json.methods.forEach((method) => {
-  api[method] =
-    (path, body) =>
-      resolve(path).then(
-        p => {
-          const headers = {}
-          const token = localStorage && localStorage.getItem('t1bw_token')
-          if (token && token !== 'undefined') headers['X-Auth-Key'] = token
-          return method === 'get' ? json.get(p, headers) : json[method](p, body, headers)
-        }
-      )
+  api[method] = (path, body) =>
+    resolve(path).then(
+      p => method === 'get' ? json.get(p) : json[method](p, body)
+    )
 })
 
 export default api
