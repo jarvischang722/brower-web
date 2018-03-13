@@ -1,3 +1,4 @@
+import moment from 'moment'
 import I18n from 'react-i18nify/build/lib/I18n'
 import zh_CN from './zh_CN'
 import en from './en'
@@ -18,4 +19,5 @@ global.i18n = {
   }
 }
 
+moment.locale('en')
 i18n.setLocale('en')
