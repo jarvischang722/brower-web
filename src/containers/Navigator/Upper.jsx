@@ -23,6 +23,12 @@ export default class Upper extends React.Component {
     router: T.object.isRequired,
   }
 
+  getUsername = () => {
+    const { user } = this.props
+    if (user.sub) return user.sub.username
+    return user.name || user.username
+  }
+
   renderBreadcrumbItem = (route, withPath) => {
     if (!route.title) return null
     return withPath ?
@@ -46,11 +52,9 @@ export default class Upper extends React.Component {
 
   renderOverlay = () => {
     const links = []
-    // links.push(<Link to="/profile"><Icon type="user" />{i18n.t('account.profile')}</Link>)
-    // links.push(<Link to="/account/security"><Icon type="safety" />{i18n.t('account.security')}</Link>)
     const count = links.length || 1
     return (
-      <div className={s.overlay} style={{ width: (count * 100 + 2) + (4 - count) * 10 }}>
+      <div className={s.overlay} style={{ width: (Math.min(count, 3) * 100 + 2) + 20 }}>
         <div className={s.cards}>{links}</div>
         <div className={s.exit}>
           <Link to="/logout">
@@ -62,7 +66,6 @@ export default class Upper extends React.Component {
   }
 
   render() {
-    const { user } = this.props
     return (
       <div className={s.container}>
         <div className={s.content}>
@@ -70,7 +73,7 @@ export default class Upper extends React.Component {
           <div className={s.dropdown}>
             <Dropdown overlay={this.renderOverlay()} trigger={['click']}>
               <a className="ant-dropdown-link">
-                {i18n.t('hello', { name: user.name || user.username })} <i className="sicon sicon-middle icon-down" />
+                {i18n.t('hello', { name: this.getUsername() })} <i className="sicon sicon-middle icon-down" />
               </a>
             </Dropdown>
           </div>

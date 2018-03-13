@@ -5,30 +5,22 @@
   left: 0;
   width: 130px;
   z-index: 999;
-  background-color: #7a8599;
-
-  nav {
-    padding: 0 0 60px 0;
-    width: 130px;
-    li {
-      padding-left: 5px;
+  background-color: #3f4857;
+  text-transform: capitalize;
+  :global {
+    .ant-menu-dark {
+      background-color: #3f4857;
+    }
+    .ant-menu-dark .ant-menu-sub {
+      background-color: #393f4a;
+    }
+    .ant-menu-sub .ant-menu-item {
+      padding-left: 24px !important;
+    }
+    .ant-menu.ant-menu-dark .ant-menu-item-selected {
+      background-color: #fff;
       a {
-        padding: 14px 0 14px 18px;
-        color: #fff;
-        display: block;
-        i {
-          margin-right: 8px;
-          font-size: 16px;
-        }
-      }
-      &.active {
-        background-color: #fff;
-        border-left: 5px solid #555a61;
-        padding-left: 0;
-        a {
-          text-decoration: none;
-          color: #525866 !important;
-        }
+        color: #02152a;
       }
     }
   }
@@ -43,10 +35,12 @@
 .logo {
   width: 130px;
   height: 80px;
-  background-color: rgb(173, 120, 72);
+  background-color: #2b7ec5;
   color: #fff;
   line-height: 30px;
   font-size: 20px;
   padding: 10px;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  background-image: url('/assets/images/blueprint.png');
+  background-size: cover;
 }
