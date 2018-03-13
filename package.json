@@ -26,12 +26,12 @@
     "not ie < 9"
   ],
   "dependencies": {
-    "antd": "^2.13.0",
+    "antd": "^3.0.1",
     "hoist-non-react-statics": "^2.3.1",
     "immutability-helper": "^2.3.1",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
-    "react": "^16.1.1",
+    "react": "^16.0.0",
     "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^16.0.0",
     "react-i18nify": "^1.8.7",
