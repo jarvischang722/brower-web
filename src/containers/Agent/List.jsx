@@ -40,7 +40,7 @@ export default class List extends React.Component {
       pageSize: 10,
       total: this.props.agents.total || 0,
       current: 1,
-      shwoSizeChanger: true,
+      showSizeChanger: true,
     },
     filters: {},
   }
