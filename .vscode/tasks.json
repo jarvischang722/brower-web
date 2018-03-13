@@ -1,0 +1,44 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "start",
+      "type": "process",
+      "command": "yarn",
+      "args": [
+        "start"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "custom",
+          "pattern": [
+            {
+                "regexp": "^(ERROR|WARNING) in (.+)$",
+                "severity" : 1,
+                "file": 2
+            },
+            {
+                "regexp": "^\\[(\\d+), (\\d+)\\]: (.+)$",
+                "line": 1,
+                "column": 2,
+                "message": 3,
+                "loop": true
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "Starting 'start'...",
+            "endsPattern": "Finished 'start' after"
+          }
+        }
+      ]
+    }
+  ]
+}
