@@ -49,7 +49,7 @@ export default class MessageHandler extends React.Component {
           if (codename === 'RequestAbort' || this.lastError === codename) return
           this.lastError = codename
           let content
-          if (codename === 'ValidationFailed') content = `Validation Failed: ${body}`
+          if (codename === 'ValidationFailed') content = `Validation Failed: ${body.message || body.code || body}`
           else if (codename) content = i18n.t(`errors.${codename}`)
           if (!content || content.replace(' ', '') === codename) content = body
           const modal = {
