@@ -1,9 +1,11 @@
+import url from 'url'
 import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { Loading, Section } from '../../components'
-import Editor from '../Profile/Editor'
+import Editor from './Editor'
 import { AgentActions } from '../../actions'
+import api from '../../utils/api'
 
 @connect(
   null,
@@ -18,14 +20,14 @@ export default class Item extends React.PureComponent {
     get: T.func.isRequired,
   }
 
+  static contextTypes = {
+    router: T.object.isRequired,
+  }
+
   state = {}
 
   componentWillMount() {
     this.loadData()
-  }
-
-  initializeValues(data) {
-    this.setState({ initialValues: data })
   }
 
   loadData() {
@@ -33,9 +35,22 @@ export default class Item extends React.PureComponent {
     get(params.id)
       .then(
         (response) => {
-          if (!response.error) this.initializeValues(response)
+          if (!response.error) {
+            const state = { initialValues: response }
+            state.iconUrl = this.generateIconUrl(response.icon)
+            this.setState(state)
+          }
         }
       )
+  }
+
+  endEdit = () => {
+    this.context.router.push('/agents')
+  }
+
+  generateIconUrl = (icon) => {
+    if (!icon) return ''
+    return `${url.resolve(api.basename, icon)}?t=${Date.now()}`
   }
 
   render() {
@@ -43,7 +58,11 @@ export default class Item extends React.PureComponent {
     if (!initialValues) return <Loading />
     return (
       <Section title={i18n.t('agent.name+agent.profile').toUpperCase()}>
-        <Editor {...this.props} initialValues={initialValues} />
+        <Editor
+          {...this.props}
+          initialValues={initialValues}
+          iconPreview={this.state.iconUrl}
+          onEndEditing={this.endEdit} />
       </Section>
     )
   }
