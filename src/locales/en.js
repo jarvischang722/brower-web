@@ -112,6 +112,7 @@ export default {
     expire_in: 'expire in',
     icon: 'icon',
     home_url: 'home URLs',
+    copy_new_profile_information: 'Please copy the login information and send to %{role}',
   },
   role: {
     title: 'role',

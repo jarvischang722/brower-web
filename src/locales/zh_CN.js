@@ -111,6 +111,7 @@ export default {
     expire_in: '过期时间',
     icon: '图标',
     home_url: '主页地址',
+    copy_new_profile_information: '请复制以下账户登录信息，并发送给%{role}',
   },
   role: {
     title: '账户类型',
