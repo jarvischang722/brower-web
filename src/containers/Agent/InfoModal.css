@@ -1,0 +1,45 @@
+:root {
+  --color: #ff7148;
+  --dark-color: color(var(--color) blackness(+30%));
+}
+
+:global {
+  .ant-confirm-success {
+    .ant-modal-content {
+      background-color: var(--color);
+      .ant-confirm-btns {
+        .ant-btn, .ant-btn:focus, .ant-btn:hover {
+          background-color: var(--dark-color);
+          border-color: var(--dark-color);
+        }
+      }
+    }
+
+    .ant-confirm-body {
+      & > .anticon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .ant-confirm-title {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .ant-confirm-content {
+        color: #fff;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .agent-info {
+    background-color: var(--dark-color);
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+    .ant-btn, .ant-btn:focus, .ant-btn:hover {
+      background-color: var(--color);
+      color: #fff;
+      border-color: #fff;
+    }
+  }
+}
