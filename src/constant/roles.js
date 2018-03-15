@@ -1,5 +1,5 @@
 const roles = [
-  { value: 0, code: 'superadmin' },
+  // { value: 0, code: 'superadmin' },
   { value: 1, code: 'agent' },
   { value: 2, code: 'client' },
 ]
