@@ -36,13 +36,17 @@ export default class ListControl extends React.Component {
   getColumns = () => {
     const columns = {
       'username & name': {
-        title: `${i18n.t('profile.name')} / ${i18n.t('auth.username')}`, key: 'username & name', width: '240',
+        title: `${i18n.t('auth.username')} / ${i18n.t('profile.name')}`, key: 'username & name', width: '240',
         render: ({ username, name }) =>
           (
             <span>
-              <b style={{ marginRight: 12 }}>{name}</b>
-              <span style={{ marginRight: 12 }}>/</span>
-              <i>{username}</i>
+              <i style={{ marginRight: 12 }}>{username}</i>
+              {
+                name && [
+                  <span style={{ marginRight: 12 }}>/</span>,
+                  <b>{name}</b>
+                ]
+              }
             </span>
           )
       },

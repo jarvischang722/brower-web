@@ -3,9 +3,11 @@ import T from 'prop-types'
 import update from 'immutability-helper'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { Icon, Button } from 'antd'
 import { AgentActions } from '../../actions'
 import { Section } from '../../components'
 import ListControl from './ListControl'
+import NewAgentModal from './NewAgentModal'
 
 @connect(
   ({ user, agents }) => {
@@ -19,6 +21,7 @@ import ListControl from './ListControl'
   },
   {
     getAgents: AgentActions.actions.list,
+    create: AgentActions.actions.create
   }
 )
 export default class List extends React.Component {
@@ -27,6 +30,7 @@ export default class List extends React.Component {
     user: T.object.isRequired,
     agents: T.object.isRequired,
     getAgents: T.func.isRequired,
+    create: T.func.isRequired,
     status: T.string.isRequired,
     query: T.object.isRequired,
   }
@@ -36,6 +40,7 @@ export default class List extends React.Component {
   }
 
   state = {
+    newAgentModalVisible: false,
     pagination: {
       pageSize: 10,
       total: this.props.agents.total || 0,
@@ -91,7 +96,9 @@ export default class List extends React.Component {
       render: ({ id }) => {
         const actions = []
         actions.push(
-          <Link to={`/agents/${id}`}>{i18n.t('actions.edit')}</Link>
+          <Link to={`/agents/${id}/browser`}>
+            <Icon type="ie" /> {i18n.t('actions.create_browser')}
+          </Link>
         )
         return actions
       }
@@ -99,9 +106,20 @@ export default class List extends React.Component {
   )
 
   getColumns = () => {
-    const columns = ['username & name', 'role']
+    const columns = ['username & name']
     columns.push(this.getActionsColumn())
     return columns
+  }
+
+  showNewAgentModal = () => {
+    this.setState({ newAgentModalVisible: true })
+  }
+
+  closeNewAgentModal = (newAgentId) => {
+    this.setState({ newAgentModalVisible: false })
+    if (newAgentId) {
+      this.context.router.push(`/agents/${newAgentId}/browser`)
+    }
   }
 
   render() {
@@ -109,15 +127,19 @@ export default class List extends React.Component {
     if (user.role !== 1) return null
     return (
       <Section noline compress>
-        <Link to="/agents/new" className="stext">
-          <i className="sicon icon-add-circle" /> {i18n.t('actions.add')}
-        </Link>
+        <Button type="primary" size="large" className="stext" onClick={this.showNewAgentModal}>
+          <i className="sicon icon-add-circle" /> {i18n.t('actions.create+role.agent')}
+        </Button>
         <ListControl
           columns={this.getColumns()}
           dataSource={agents.items}
           pagination={this.state.pagination}
           loading={status === 'LOADING'}
           onChange={this.handleTableChange} />
+        {
+          this.state.newAgentModalVisible &&
+          <NewAgentModal save={this.props.create} close={this.closeNewAgentModal} />
+        }
       </Section>
     )
   }
