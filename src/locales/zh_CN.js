@@ -112,6 +112,11 @@ export default {
     icon: '图标',
     home_url: '主页地址',
     copy_new_profile_information: '请复制以下账户登录信息，并发送给%{role}',
+    validation: {
+      name_required: '请输入名称',
+      icon_required: '请提供浏览器图标',
+      home_url_required: '请提供首页地址'
+    }
   },
   role: {
     title: '账户类型',
