@@ -113,6 +113,12 @@ export default {
     icon: 'icon',
     home_url: 'home URLs',
     copy_new_profile_information: 'Please copy the login information and send to %{role}',
+    validation: {
+      name_required: 'name is required',
+      icon_required: 'icon is required',
+      home_url_required: 'home url is required'
+    }
+
   },
   role: {
     title: 'role',

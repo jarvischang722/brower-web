@@ -7,7 +7,7 @@ async function copy({ watching } = {}) {
   await fs.makeDir('build/assets')
 
   const promises = [
-    fs.copyDir('src/assets/js', 'build/assets'),
+    fs.copyDir('src/assets/external', 'build/assets/external'),
     fs.copyDir('src/assets/images', 'build/assets/images'),
     fs.copyFile('src/config.json', 'build/assets/config.json'),
   ]
