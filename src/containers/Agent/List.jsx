@@ -97,7 +97,7 @@ export default class List extends React.Component {
         const actions = []
         actions.push(
           <Link to={`/agents/${id}/browser`}>
-            <Icon type="ie" /> {i18n.t('actions.create_browser')}
+            <Icon type="ie" /> {i18n.t('actions.manage+browser.title')}
           </Link>
         )
         return actions
