@@ -104,8 +104,8 @@ export default class CreateBrowserForm extends React.Component {
   }
 
   getSubmitText = () => {
-    if (this.state.submitting) return i18n.t('actions.saving')
-    return i18n.t('actions.save')
+    if (this.state.submitting) return i18n.t('actions.submitting')
+    return i18n.t('actions.create')
   }
 
   cancel = () => {
