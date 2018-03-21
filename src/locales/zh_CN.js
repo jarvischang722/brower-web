@@ -72,6 +72,7 @@ export default {
     committing: '正在提交...',
     get_all: '查看全部',
     modify: '修改',
+    manage: '管理',
     export: '导出',
     export_csv: '导出 CSV',
   },
@@ -126,6 +127,8 @@ export default {
   },
   browser: {
     title: '浏览器',
+    settings: '浏览器配置信息',
+    browsers: '浏览器',
   },
   weeks: {
     0: '星期日',

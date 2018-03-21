@@ -73,6 +73,7 @@ export default {
     committing: 'cimmitting...',
     get_all: 'get all',
     modify: 'modify',
+    manage: 'manage',
     export: 'export',
     export_csv: 'export CSV',
   },
@@ -128,6 +129,8 @@ export default {
   },
   browser: {
     title: 'browser',
+    settings: 'settings',
+    browsers: 'browsers',
   },
   weeks: {
     0: 'Sunday',
