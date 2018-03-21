@@ -1,8 +1,8 @@
 import React from 'react'
 import T from 'prop-types'
-import { Form, Input, Button, Row, Col } from 'antd'
+import { Form, Input, Button, Col } from 'antd'
 import { Section, WrappedFormItem, Upload } from '../../components'
-import { roles, formLayout } from '../../constant'
+import { formLayout } from '../../constant'
 
 const { TextArea } = Input
 const FormItem = Form.Item
@@ -10,16 +10,20 @@ const FormItem = Form.Item
 const { formItemLayout, tailFormItemLayout } = formLayout
 
 @Form.create()
-export default class CreateBrowserForm extends React.Component {
+export default class BrowserSettingForm extends React.Component {
   static propTypes = {
+    editable: T.bool,
     initialValues: T.object.isRequired,
     iconPreview: T.string,
     save: T.func.isRequired,
     form: T.object.isRequired,
-    onEndEditing: T.func.isRequired,
+    onSave: T.func.isRequired,
+    onCancel: T.func.isRequired,
+    onUpdateState: T.func.isRequired,
   }
 
   static defaultProps = {
+    editable: false,
     iconPreview: ''
   }
 
@@ -49,7 +53,8 @@ export default class CreateBrowserForm extends React.Component {
             response => {
               this.setState({ submitting: false })
               if (!response.error) {
-                this.props.onEndEditing(response)
+                this.setState({ initialValues: response })
+                this.props.onSave(response)
               }
             }
           )
@@ -105,66 +110,75 @@ export default class CreateBrowserForm extends React.Component {
 
   getSubmitText = () => {
     if (this.state.submitting) return i18n.t('actions.submitting')
-    return i18n.t('actions.create')
+    return i18n.t('actions.save+browser.settings')
   }
 
   cancel = () => {
-    this.props.onEndEditing()
+    this.props.onCancel()
   }
 
-  renderRole() {
-    const { initialValues } = this.state
-    return roles.find(({ value }) => initialValues.role === value).text
+  enterEdit = () => {
+    this.props.onUpdateState(true)
   }
 
-  renderEditingField = (key) => (
-    <Row>
-      <Col span={key === 'homeUrl' ? 24 : 20}>
-        {this.field(key)}
+  renderHomeUrls = (homeUrl) => {
+    if (!homeUrl || homeUrl.length === 0) return '-'
+    return (
+      <Col span={20} className="monospace" style={{ lineHeight: '19px', padding: '11px 0', width: '100%' }}>
+        { homeUrl.map(u => <div>{u}</div>) }
       </Col>
-      <Col span={3} offset={key === 'homeUrl' ? 16 : 1} className="nowrap" style={{ marginTop: key === 'homeUrl' ? 10 : 0 }}>
-        <Button type="primary" htmlType="submit" size="large">{i18n.t('actions.save')}</Button>
-        <Button style={{ marginLeft: 10 }} onClick={this.edit()} size="large">{i18n.t('actions.cancel')}</Button>
-      </Col>
-    </Row>
-  )
+    )
+  }
 
   render() {
+    const { editable, iconPreview } = this.props
     const { initialValues } = this.state
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Section>
-          <WrappedFormItem
-            {...formItemLayout}
-            label={i18n.t('auth.username')}>
-            {initialValues.username}
-          </WrappedFormItem>
-          <WrappedFormItem
-            {...formItemLayout}
-            label={i18n.t('profile.name')}>
-            {this.field('name')}
-          </WrappedFormItem>
-          <WrappedFormItem
-            {...formItemLayout}
-            label={i18n.t('profile.icon')}>
-            {this.field('icon')}
-          </WrappedFormItem>
-          <WrappedFormItem
-            {...formItemLayout}
-            label={i18n.t('profile.home_url')}>
-            {this.field('homeUrl')}
-          </WrappedFormItem>
-        </Section>
-        <Section width={600}>
-          <FormItem {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" size="large" loading={this.state.submitting}>
-              {this.getSubmitText()}
-            </Button>
-            <Button size="large" disabled={this.state.submitting} style={{ marginLeft: 20 }} onClick={this.cancel}>
-              {i18n.t('actions.cancel')}
-            </Button>
-          </FormItem>
-        </Section>
+        <WrappedFormItem
+          {...formItemLayout}
+          label={i18n.t('auth.username')}>
+          {initialValues.username}
+        </WrappedFormItem>
+        <WrappedFormItem
+          {...formItemLayout}
+          label={i18n.t('profile.name')}>
+          {editable ? this.field('name') : initialValues.name}
+        </WrappedFormItem>
+        <WrappedFormItem
+          {...formItemLayout}
+          label={i18n.t('profile.icon')}>
+          {
+            editable ?
+              this.field('icon') :
+              <img src={iconPreview} style={{ width: 80, height: 80 }} alt="icon" />
+          }
+        </WrappedFormItem>
+        <WrappedFormItem
+          {...formItemLayout}
+          label={i18n.t('profile.home_url')}>
+          {
+            editable ?
+              this.field('homeUrl') :
+              this.renderHomeUrls(initialValues.homeUrl)
+          }
+        </WrappedFormItem>
+        {
+          editable ?
+            <Section width={600}>
+              <FormItem {...tailFormItemLayout}>
+                <Button type="primary" htmlType="submit" size="large" loading={this.state.submitting}>
+                  {this.getSubmitText()}
+                </Button>
+                <Button size="large" disabled={this.state.submitting} style={{ marginLeft: 20 }} onClick={this.cancel}>
+                  {i18n.t('actions.cancel')}
+                </Button>
+              </FormItem>
+            </Section> :
+            <WrappedFormItem {...tailFormItemLayout}>
+              <Button type="primary" onClick={this.enterEdit}>Modify Settings</Button>
+            </WrappedFormItem>
+        }
       </Form>
     )
   }
