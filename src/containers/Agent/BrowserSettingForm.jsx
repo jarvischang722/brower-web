@@ -53,8 +53,8 @@ export default class BrowserSettingForm extends React.Component {
             response => {
               this.setState({ submitting: false })
               if (!response.error) {
-                this.setState({ initialValues: response })
-                this.props.onSave(response)
+                this.setState({ initialValues: { ...initialValues, ...response } })
+                this.props.onSave(response, isFormData)
               }
             }
           )
@@ -121,6 +121,11 @@ export default class BrowserSettingForm extends React.Component {
     this.props.onUpdateState(true)
   }
 
+  exitEdit = () => {
+    if (!this.state.initialValues.icon) this.cancel()
+    else this.props.onUpdateState(false)
+  }
+
   renderHomeUrls = (homeUrl) => {
     if (!homeUrl || homeUrl.length === 0) return '-'
     return (
@@ -170,13 +175,13 @@ export default class BrowserSettingForm extends React.Component {
                 <Button type="primary" htmlType="submit" size="large" loading={this.state.submitting}>
                   {this.getSubmitText()}
                 </Button>
-                <Button size="large" disabled={this.state.submitting} style={{ marginLeft: 20 }} onClick={this.cancel}>
+                <Button size="large" disabled={this.state.submitting} style={{ marginLeft: 20 }} onClick={this.exitEdit}>
                   {i18n.t('actions.cancel')}
                 </Button>
               </FormItem>
             </Section> :
             <WrappedFormItem {...tailFormItemLayout}>
-              <Button type="primary" onClick={this.enterEdit}>Modify Settings</Button>
+              <Button type="primary" onClick={this.enterEdit}>{i18n.t('actions.modify+browser.settings')}</Button>
             </WrappedFormItem>
         }
       </Form>

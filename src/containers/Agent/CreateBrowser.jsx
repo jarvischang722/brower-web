@@ -73,14 +73,16 @@ export default class CreateBrowser extends React.PureComponent {
       )
   }
 
-  browserSettingSaved = () => {
-    this.setState({ editable: false })
+  browserSettingSaved = (response, newIcon) => {
+    const state = { editable: false }
+    if (newIcon) state.iconUrl = this.generateIconUrl(response.icon)
+    state.initialValues = { ...this.state.initialValues, ...response }
+    this.setState(state)
     this.loadBrowserList()
   }
 
   onCancel = () => {
-    if (this.state.initialValues.icon) this.setState({ editable: false })
-    else this.context.router.push('/agents')
+    this.context.router.push('/agents')
   }
 
   onUpdateState = (editable) => {
