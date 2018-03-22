@@ -63,9 +63,12 @@ export default class CreateBrowser extends React.PureComponent {
           if (!response.error) {
             const state = { browsers: {} }
             if (response.total > 0) {
+              let shouldReload = false
               response.items.forEach(item => {
                 state.browsers[item.platform] = item
+                if (item.status === 2) shouldReload = true
               })
+              if (shouldReload) setTimeout(() => { this.loadBrowserList() }, 10000)
             }
             this.setState(state)
           }
@@ -94,6 +97,10 @@ export default class CreateBrowser extends React.PureComponent {
     return `${url.resolve(api.basename, icon)}?t=${Date.now()}`
   }
 
+  versionsShouldChange = () => {
+    this.loadBrowserList()
+  }
+
   render() {
     const { initialValues, editable, browsers } = this.state
     if (!initialValues) return <Loading />
@@ -108,7 +115,11 @@ export default class CreateBrowser extends React.PureComponent {
           onUpdateState={this.onUpdateState}
           editable={editable} />
         {
-          !editable && <BrowserVersions data={browsers} />
+          !editable &&
+          <BrowserVersions
+            {...this.props}
+            data={browsers}
+            handleChange={this.versionsShouldChange} />
         }
       </Section>
     )

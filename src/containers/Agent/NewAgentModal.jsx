@@ -18,11 +18,11 @@ export default class NewAgentModal extends React.Component {
   }
 
   submit = () => {
-    const state = { saving: true }
-    this.setState(state)
     const { form, save } = this.props
     form.validateFieldsAndScroll({ scroll: { offsetTop: 120 } }, (err, values) => {
       if (!err) {
+        const state = { saving: true }
+        this.setState(state)
         save(values).then(
           response => {
             if (!response.error) {

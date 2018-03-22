@@ -76,6 +76,10 @@ export default {
     manage: 'manage',
     export: 'export',
     export_csv: 'export CSV',
+    generate: 'generate',
+    generating: 'generating...',
+    generated: 'generated',
+    download: 'download'
   },
   limited: 'limited',
   unlimited: 'unlimited',
@@ -131,6 +135,15 @@ export default {
     title: 'browser',
     settings: 'settings',
     browsers: 'browsers',
+    link: 'link',
+    version: 'version',
+    generation_failed: 'Last generation failed!',
+    generate_windows_browser_confirm: 'Confirm',
+    generate_windows_browser_confirm_description: 'You will generate a new Windows Browser.',
+    message: {
+      windows_generation_success: 'Windows browser generated successully!',
+      version_add_success: '%{platform} browser version updated!',
+    }
   },
   weeks: {
     0: 'Sunday',

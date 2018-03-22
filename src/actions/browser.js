@@ -12,7 +12,8 @@ const types = [
 
 const create = data =>
   dispatch(
-    api.post('/browser/info', data)
+    api.post('/browser/info', data),
+    { success: i18n.t('browser.message.version_add_success', { platform: data.platform }) }
   )
 
 const list = (user) =>

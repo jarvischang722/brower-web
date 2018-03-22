@@ -92,6 +92,7 @@ export default class BrowserSettingForm extends React.Component {
         rules.push({ required: true, message: i18n.t('profile.validation.icon_required') })
         component = (
           <Upload
+            strictFileType=".ico"
             content={iconPreview}
             width={80}
             height={80} />
