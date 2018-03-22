@@ -19,6 +19,7 @@ export default class extends React.Component {
     onChange: T.func.isRequired,
     sizeLimit: T.number,
     accept: T.oneOf(['image', 'video', 'audio']),
+    strictFileType: T.string,
     width: T.number,
     height: T.number,
     trigger: T.any // oneOf(['none', 'button', 'icon']), or react element
@@ -29,6 +30,7 @@ export default class extends React.Component {
     content: null,
     sizeLimit: 2 * 1024 * 1024, // 2MB
     accept: 'image',
+    strictFileType: '',
     width: 50,
     height: 50,
     trigger: 'icon',
@@ -86,11 +88,11 @@ export default class extends React.Component {
   }
 
   render() {
-    const { name, width, height, accept, trigger } = this.props
+    const { name, width, height, accept, strictFileType, trigger } = this.props
     return (
       <Upload
         name={name}
-        accept={`${accept}/*`}
+        accept={strictFileType || `${accept}/*`}
         className={trigger === 'icon' && style.icon}
         style={{ width, height }}
         showUploadList={false}
