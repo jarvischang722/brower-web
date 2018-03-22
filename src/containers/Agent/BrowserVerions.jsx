@@ -98,7 +98,7 @@ export default class BrowserVersions extends React.Component {
       if (platform.status === 2) {
         actions.push(
           <span style={{ marginLeft: 10 }}>
-            <Icon type="loading" /> {i18n.t('browser.actions.generating')}
+            <Icon type="loading" /> {i18n.t('actions.generating')}
           </span>
         )
       } else {
