@@ -79,6 +79,7 @@ export default {
     generating: '正在生成...',
     generated: '已生成',
     download: '下载',
+    update: '更新',
   },
   limited: '限制',
   unlimited: '不限',

@@ -104,7 +104,7 @@ export default class BrowserVersions extends React.Component {
       } else {
         actions.push(
           <Button type="danger" size="small" onClick={this.generateWindowsBrowser}>
-            <Icon type="plus" /> {i18n.t('actions.generate+browser.version')}
+            <Icon type="plus" /> {i18n.t('actions.generate+browser.title')}
           </Button>
         )
       }
@@ -118,7 +118,7 @@ export default class BrowserVersions extends React.Component {
     } else {
       actions.push(
         <Button type="danger" size="small" onClick={this.showNewVersionModal(name, platform.link)}>
-          <Icon type="plus" /> {i18n.t('actions.add+browser.version')}
+          <Icon type="plus" /> {i18n.t(platform.version ? 'actions.update+browser.version' : 'actions.add+browser.version')}
         </Button>
       )
     }

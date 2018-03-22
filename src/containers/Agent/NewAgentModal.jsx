@@ -58,7 +58,7 @@ export default class NewAgentModal extends React.Component {
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 17 }}
             label={i18n.t('auth.username')}>
-            {this.props.form.getFieldDecorator('username', { rules: [{ required: true }] })(<Input />)}
+            {this.props.form.getFieldDecorator('username', { rules: [{ required: true }] })(<Input onPressEnter={this.submit} />)}
           </FormItem>
         </Form>
       </Modal>

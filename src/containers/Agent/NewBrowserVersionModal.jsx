@@ -83,7 +83,7 @@ export default class NewBrowserVersionModal extends React.Component {
             noline
             {...formItemLayout}
             label={i18n.t('browser.version')}>
-            {form.getFieldDecorator('version', { rules: [{ required: true }] })(<Input />)}
+            {form.getFieldDecorator('version', { rules: [{ required: true }] })(<Input onPressEnter={this.submit} />)}
           </WrappedFormItem>
         </Form>
       </Modal>

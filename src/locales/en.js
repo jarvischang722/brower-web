@@ -79,7 +79,8 @@ export default {
     generate: 'generate',
     generating: 'generating...',
     generated: 'generated',
-    download: 'download'
+    download: 'download',
+    update: 'update'
   },
   limited: 'limited',
   unlimited: 'unlimited',
