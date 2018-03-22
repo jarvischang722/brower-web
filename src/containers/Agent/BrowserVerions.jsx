@@ -10,7 +10,7 @@ import NewBrowserVersionModal from './NewBrowserVersionModal'
 
 const { formItemLayout } = formLayout
 
-const platforms = ['windows', 'mac', 'ios', 'android']
+const platforms = ['Windows', 'macOS', 'iOS', 'Android']
 
 @connect(
   null,
@@ -72,10 +72,10 @@ export default class BrowserVersions extends React.Component {
   }
 
   renderPlatformName = (platform) => {
-    const icon = (platform === 'mac' || platform === 'ios') ? 'apple' : platform
+    const icon = (platform === 'macOS' || platform === 'iOS') ? 'apple' : platform
     return (
       <Tag>
-        <Icon type={icon} /> {platform}
+        <Icon type={icon.toLowerCase()} /> {platform}
       </Tag>
     )
   }
@@ -94,7 +94,7 @@ export default class BrowserVersions extends React.Component {
         </CopyToClipboard>
       )
     }
-    if (name === 'windows') {
+    if (name === 'Windows') {
       if (platform.status === 2) {
         actions.push(
           <span style={{ marginLeft: 10 }}>

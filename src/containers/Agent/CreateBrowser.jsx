@@ -8,6 +8,21 @@ import BrowserVersions from './BrowserVerions'
 import { AgentActions, BrowserActions } from '../../actions'
 import api from '../../utils/api'
 
+const translatePlatform = (platform) => {
+  switch (platform) {
+    case 'windows':
+      return 'Windows'
+    case 'mac':
+      return 'macOS'
+    case 'ios':
+      return 'iOS'
+    case 'andorid':
+      return 'Android'
+    default:
+      return platform
+  }
+}
+
 @connect(
   null,
   {
@@ -65,7 +80,7 @@ export default class CreateBrowser extends React.PureComponent {
             if (response.total > 0) {
               let shouldReload = false
               response.items.forEach(item => {
-                state.browsers[item.platform] = item
+                state.browsers[translatePlatform(item.platform)] = item
                 if (item.status === 2) shouldReload = true
               })
               if (shouldReload) setTimeout(() => { this.loadBrowserList() }, 10000)
