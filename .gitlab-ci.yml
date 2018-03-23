@@ -1,0 +1,36 @@
+image: node:8.9
+
+cache:
+  paths:
+    - node_modules/
+    - build/
+
+before_script:
+  - cp src/config.json.sample src/config.json
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - yarn run build release
+  only:
+    - master
+  tags:
+    - staging
+
+deploy:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: deploy
+  script:
+    - docker build -t johnfu/lottery:browser .
+    - docker login -u johnfu -p '1qaz!QAZ'
+    - docker push johnfu/lottery:browser
+  only:
+    - master
+  tags:
+    - staging
