@@ -9,12 +9,11 @@ import InfoModal from './InfoModal'
 @connect(
   null,
   {
-    get: AgentActions.actions.get,
     save: AgentActions.actions.create,
   }
 )
 @InfoModal.create()
-export default class Item extends React.PureComponent {
+export default class New extends React.PureComponent {
   static contextTypes = {
     router: T.object.isRequired,
   }

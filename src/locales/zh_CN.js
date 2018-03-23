@@ -140,6 +140,15 @@ export default {
     generate_windows_browser_confirm: '请确认',
     generate_windows_browser_confirm_description: '确认生成一个新版本的 Windows 浏览器？',
   },
+  short_link: {
+    title: '短地址',
+    name: '短地址',
+    site_name: '网站',
+    long: '长地址',
+    short: '短地址',
+    logo: 'LOGO'
+
+  },
   weeks: {
     0: '星期日',
     1: '星期一',

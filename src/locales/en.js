@@ -124,7 +124,6 @@ export default {
       icon_required: 'icon is required',
       home_url_required: 'home url is required'
     }
-
   },
   role: {
     title: 'role',
@@ -145,6 +144,14 @@ export default {
       windows_generation_success: 'Windows browser generated successully!',
       version_add_success: '%{platform} browser version updated!',
     }
+  },
+  short_link: {
+    title: 'short links',
+    name: 'short link',
+    site_name: 'site name',
+    long: 'long',
+    short: 'short',
+    logo: 'logo'
   },
   weeks: {
     0: 'Sunday',
