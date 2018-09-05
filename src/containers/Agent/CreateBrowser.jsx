@@ -8,7 +8,7 @@ import BrowserVersions from './BrowserVerions'
 import { AgentActions, BrowserActions } from '../../actions'
 import api from '../../utils/api'
 
-const translatePlatform = (platform) => {
+const translatePlatform = platform => {
   switch (platform) {
     case 'windows':
       return 'Windows'
@@ -30,7 +30,7 @@ const translatePlatform = (platform) => {
     save: AgentActions.actions.update,
     getBrowserList: BrowserActions.actions.list,
     createBrowserVersion: BrowserActions.actions.create,
-    generateWindowsBrowser: BrowserActions.actions.generateWindowsBrowser
+    generateBrowser: BrowserActions.actions.generateBrowser
   }
 )
 export default class CreateBrowser extends React.PureComponent {
@@ -39,11 +39,11 @@ export default class CreateBrowser extends React.PureComponent {
     get: T.func.isRequired,
     getBrowserList: T.func.isRequired,
     createBrowserVersion: T.func.isRequired,
-    generateWindowsBrowser: T.func.isRequired,
+    generateBrowser: T.func.isRequired
   }
 
   static contextTypes = {
-    router: T.object.isRequired,
+    router: T.object.isRequired
   }
 
   state = {
@@ -56,39 +56,33 @@ export default class CreateBrowser extends React.PureComponent {
 
   loadSettingData() {
     const { params, get } = this.props
-    get(params.id)
-      .then(
-        (response) => {
-          if (!response.error) {
-            const state = { initialValues: response }
-            state.iconUrl = this.generateIconUrl(response.icon)
-            if (!response.icon) state.editable = true
-            this.setState(state)
-            if (response.icon) this.loadBrowserList()
-          }
-        }
-      )
+    get(params.id).then(response => {
+      if (!response.error) {
+        const state = { initialValues: response }
+        state.iconUrl = this.generateIconUrl(response.icon)
+        if (!response.icon) state.editable = true
+        this.setState(state)
+        if (response.icon) this.loadBrowserList()
+      }
+    })
   }
 
   loadBrowserList() {
     const { params, getBrowserList } = this.props
-    getBrowserList(params.id)
-      .then(
-        response => {
-          if (!response.error) {
-            const state = { browsers: {} }
-            if (response.total > 0) {
-              let shouldReload = false
-              response.items.forEach(item => {
-                state.browsers[translatePlatform(item.platform)] = item
-                if (item.status === 2) shouldReload = true
-              })
-              if (shouldReload) setTimeout(() => { this.loadBrowserList() }, 10000)
-            }
-            this.setState(state)
-          }
+    getBrowserList(params.id).then(response => {
+      if (!response.error) {
+        const state = { browsers: {} }
+        if (response.total > 0) {
+          let shouldReload = false
+          response.items.forEach(item => {
+            state.browsers[translatePlatform(item.platform)] = item
+            if (item.status === 2) shouldReload = true
+          })
+          if (shouldReload) setTimeout(() => { this.loadBrowserList() }, 10000)
         }
-      )
+        this.setState(state)
+      }
+    })
   }
 
   browserSettingSaved = (response, newIcon) => {
@@ -103,11 +97,11 @@ export default class CreateBrowser extends React.PureComponent {
     this.context.router.push('/agents')
   }
 
-  onUpdateState = (editable) => {
+  onUpdateState = editable => {
     this.setState({ editable })
   }
 
-  generateIconUrl = (icon) => {
+  generateIconUrl = icon => {
     if (!icon) return ''
     return `${url.resolve(api.basename, icon)}?t=${Date.now()}`
   }
@@ -129,13 +123,12 @@ export default class CreateBrowser extends React.PureComponent {
           onCancel={this.onCancel}
           onUpdateState={this.onUpdateState}
           editable={editable} />
-        {
-          !editable &&
+        {!editable && (
           <BrowserVersions
             {...this.props}
             data={browsers}
             handleChange={this.versionsShouldChange} />
-        }
+        )}
       </Section>
     )
   }

@@ -21,10 +21,11 @@ const list = (user) =>
     api.get(`/browser/list?user=${user}`)
   )
 
-const generateWindowsBrowser = (user) =>
+const generateBrowser = (user, platform) =>
   dispatch(
-    api.post('/browser/create', { id: user })
+    api.post('/browser/create', { id: user, platform })
   )
+
 export default {
   name,
   types,
@@ -32,5 +33,6 @@ export default {
     create,
     list,
     generateWindowsBrowser,
+    generateBrowser
   },
 }

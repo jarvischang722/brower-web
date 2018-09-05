@@ -25,7 +25,7 @@ export default class BrowserVersions extends React.Component {
     notify: T.func.isRequired,
     handleChange: T.func.isRequired,
     createBrowserVersion: T.func.isRequired,
-    generateWindowsBrowser: T.func.isRequired,
+    generateBrowser: T.func.isRequired,
   }
 
   static defaultProps = {
@@ -54,17 +54,19 @@ export default class BrowserVersions extends React.Component {
     }
   }
 
-  generateWindowsBrowser = () => {
+  generateBrowser = (platform) => {
+    const self = this
     Modal.confirm({
       width: 500,
-      title: i18n.t('browser.generate_windows_browser_confirm'),
-      content: i18n.t('browser.generate_windows_browser_confirm_description'),
-      onOk: this.performGenerateWindowsBrowser,
+      title: i18n.t('browser.generate_browser_confirm'),
+      content: i18n.t('browser.generate_browser_confirm_description', { platform }),
+      onOk() { self.performGenerateBrowser(platform) },
+      onCancel() {},
     })
   }
 
-  performGenerateWindowsBrowser = () => {
-    this.props.generateWindowsBrowser(this.props.params.id).then(
+  performGenerateBrowser = platform => {
+    this.props.generateBrowser(this.props.params.id, platform).then(
       repsonse => {
         if (!repsonse.error) this.props.handleChange()
       }
@@ -94,7 +96,7 @@ export default class BrowserVersions extends React.Component {
         </CopyToClipboard>
       )
     }
-    if (name === 'Windows') {
+    if (name === 'Windows' || name === 'macOS') {
       if (platform.status === 2) {
         actions.push(
           <span style={{ marginLeft: 10 }}>
@@ -103,7 +105,7 @@ export default class BrowserVersions extends React.Component {
         )
       } else {
         actions.push(
-          <Button type="danger" size="small" onClick={this.generateWindowsBrowser}>
+          <Button type="danger" size="small" onClick={() => this.generateBrowser(name)}>
             <Icon type="plus" /> {i18n.t('actions.generate+browser.title')}
           </Button>
         )

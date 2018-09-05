@@ -138,8 +138,8 @@ export default {
     link: 'link',
     version: 'version',
     generation_failed: 'Last generation failed!',
-    generate_windows_browser_confirm: 'Confirm',
-    generate_windows_browser_confirm_description: 'You will generate a new Windows Browser.',
+    generate_browser_confirm: 'Confirm',
+    generate_browser_confirm_description: 'You will generate a new %{platform} Browser.',
     message: {
       windows_generation_success: 'Windows browser generated successully!',
       version_add_success: '%{platform} browser version updated!',
