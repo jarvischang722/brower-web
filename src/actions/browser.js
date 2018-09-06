@@ -32,7 +32,6 @@ export default {
   actions: {
     create,
     list,
-    generateWindowsBrowser,
     generateBrowser
   },
 }
