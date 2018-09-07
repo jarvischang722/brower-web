@@ -53,7 +53,6 @@ export default class BrowserSettingForm extends React.Component {
         const isFormData = icon instanceof File
         if (isFormData) data.isFormData = true
         this.setState({ submitting: true })
-        console.log(data)
         save(data).then(response => {
           this.setState({ submitting: false })
           if (!response.error) {
