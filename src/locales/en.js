@@ -20,28 +20,29 @@ export default {
       username_required: 'username required',
       password_required: 'password required',
       password_invalid_length: 'password length is at less %{length}',
-      new_password_should_not_as_same_as_old_password: 'password should not as same as current password',
+      new_password_should_not_as_same_as_old_password:
+        'password should not as same as current password',
       old_password_required: 'current password required',
       new_password_required: 'new password required',
       confirm_new_password_required: 'type new password again',
-      confirm_new_password_not_same: 'confirm new passwords are different',
+      confirm_new_password_not_same: 'confirm new passwords are different'
     },
     message: {
       change_initial_password_alert: 'place change your initial password before you enter system',
-      password_changed: 'password changed',
+      password_changed: 'password changed'
     }
   },
   list: {
     title: 'list',
     all: 'All %{type}: %{total}',
-    filtered: 'Filtered %{type}: %{total}',
+    filtered: 'Filtered %{type}: %{total}'
   },
   message: {
     success: 'success',
     error: 'error',
     warning: 'warning',
     info: 'info',
-    failed: 'failed',
+    failed: 'failed'
   },
   actions: {
     title: 'actions',
@@ -89,27 +90,27 @@ export default {
     name: 'agent',
     profile: 'profile',
     filters: {
-      search: 'name included',
+      search: 'name included'
     },
     actions: {
-      reset_password: 'reset password',
+      reset_password: 'reset password'
     },
     validation: {
       username_required: 'username required',
       username_alphanumeric_only: 'alphanumeric only',
       username_invalid_length: 'username is too long',
-      name_required: 'name required',
+      name_required: 'name required'
     },
     message: {
       success: {
         create: 'create agent %{name} success!',
-        update: 'upate agent %{name} success！',
+        update: 'upate agent %{name} success！'
       }
-    },
+    }
   },
   account: {
     title: 'account',
-    profile: 'profile',
+    profile: 'profile'
   },
   profile: {
     title: 'profile',
@@ -117,11 +118,13 @@ export default {
     role: 'role',
     expire_in: 'expire in',
     icon: 'icon',
+    icon_macos: 'icon for macOS',
     home_url: 'home URLs',
     copy_new_profile_information: 'Please copy the login information and send to %{role}',
     validation: {
       name_required: 'name is required',
       icon_required: 'icon is required',
+      icon_macOS_required: 'macOS icon is required',
       home_url_required: 'home url is required'
     }
   },
@@ -129,7 +132,7 @@ export default {
     title: 'role',
     superadmin: 'superadmin',
     agent: 'agent',
-    client: 'client',
+    client: 'client'
   },
   browser: {
     title: 'browser',
@@ -142,7 +145,7 @@ export default {
     generate_browser_confirm_description: 'You will generate a new %{platform} Browser.',
     message: {
       windows_generation_success: 'Windows browser generated successully!',
-      version_add_success: '%{platform} browser version updated!',
+      version_add_success: '%{platform} browser version updated!'
     }
   },
   short_link: {
@@ -160,7 +163,7 @@ export default {
     3: 'Wednesday',
     4: 'Thursday',
     5: 'Friday',
-    6: 'Saturday',
+    6: 'Saturday'
   },
   errors: {
     RequestTimeout: 'request timeout',

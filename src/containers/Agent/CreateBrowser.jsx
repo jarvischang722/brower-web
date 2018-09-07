@@ -60,6 +60,7 @@ export default class CreateBrowser extends React.PureComponent {
       if (!response.error) {
         const state = { initialValues: response }
         state.iconUrl = this.generateIconUrl(response.icon)
+        state.iconMacOSUrl = this.generateIconUrl(response.icon_macos)
         if (!response.icon) state.editable = true
         this.setState(state)
         if (response.icon) this.loadBrowserList()
@@ -78,7 +79,11 @@ export default class CreateBrowser extends React.PureComponent {
             state.browsers[translatePlatform(item.platform)] = item
             if (item.status === 2) shouldReload = true
           })
-          if (shouldReload) setTimeout(() => { this.loadBrowserList() }, 10000)
+          if (shouldReload) {
+            setTimeout(() => {
+              this.loadBrowserList()
+            }, 10000)
+          }
         }
         this.setState(state)
       }
@@ -87,7 +92,10 @@ export default class CreateBrowser extends React.PureComponent {
 
   browserSettingSaved = (response, newIcon) => {
     const state = { editable: false }
-    if (newIcon) state.iconUrl = this.generateIconUrl(response.icon)
+    if (newIcon) {
+      state.iconUrl = this.generateIconUrl(response.icon)
+      state.iconMacOSUrl = this.generateIconUrl(response.icon_macos)
+    }
     state.initialValues = { ...this.state.initialValues, ...response }
     this.setState(state)
     this.loadBrowserList()
@@ -119,6 +127,7 @@ export default class CreateBrowser extends React.PureComponent {
           {...this.props}
           initialValues={initialValues}
           iconPreview={this.state.iconUrl}
+          iconMacOSPreview={this.state.iconMacOSUrl}
           onSave={this.browserSettingSaved}
           onCancel={this.onCancel}
           onUpdateState={this.onUpdateState}

@@ -4,16 +4,16 @@ import { json } from './request'
 const api = {}
 
 const resolve = (path) =>
-  new Promise((r) => {
+  new Promise((done) => {
     if (!api.basename) {
       json.get('/assets/config.json').then(
         ({ body }) => {
           api.basename = body.api
-          r(url.resolve(api.basename, path))
+          done(url.resolve(api.basename, path))
         }
       )
     } else {
-      r(url.resolve(api.basename, path))
+      done(url.resolve(api.basename, path))
     }
   })
 

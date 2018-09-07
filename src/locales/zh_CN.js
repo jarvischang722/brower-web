@@ -23,24 +23,24 @@ export default {
       old_password_required: '请输入现在的密码',
       new_password_required: '请输入新密码',
       confirm_new_password_required: '请再次输入新密码',
-      confirm_new_password_not_same: '两次输入的密码不一致',
+      confirm_new_password_not_same: '两次输入的密码不一致'
     },
     message: {
       change_initial_password_alert: '请先修改初始密码，修改后可进入系统',
-      password_changed: '修改密码完成',
+      password_changed: '修改密码完成'
     }
   },
   list: {
     title: '列表',
     all: '共有%{type}记录 %{total} 条',
-    filtered: '共匹配%{type}记录 %{total} 条',
+    filtered: '共匹配%{type}记录 %{total} 条'
   },
   message: {
     success: '成功',
     error: '错误',
     warning: '警告',
     info: '提示',
-    failed: '失败',
+    failed: '失败'
   },
   actions: {
     title: '操作',
@@ -79,7 +79,7 @@ export default {
     generating: '正在生成...',
     generated: '已生成',
     download: '下载',
-    update: '更新',
+    update: '更新'
   },
   limited: '限制',
   unlimited: '不限',
@@ -88,27 +88,27 @@ export default {
     name: '子代理',
     profile: '用户信息',
     filters: {
-      search: '账号或名称包含',
+      search: '账号或名称包含'
     },
     actions: {
-      reset_password: '重置密码',
+      reset_password: '重置密码'
     },
     validation: {
       username_required: '请输入子代理账号',
       username_alphanumeric_only: '账号仅限于字母，数字和下划线(_)组合',
       username_invalid_length: '账号长度过长，请缩短账号',
-      name_required: '请输入子代理显示名称',
+      name_required: '请输入子代理显示名称'
     },
     message: {
       success: {
         create: '子代理“%{name}”创建成功！',
-        update: '子代理“%{name}”已保存！',
+        update: '子代理“%{name}”已保存！'
       }
-    },
+    }
   },
   account: {
     title: '个人中心',
-    profile: '个人信息',
+    profile: '个人信息'
   },
   profile: {
     title: '账号信息',
@@ -116,11 +116,13 @@ export default {
     role: '账户类型',
     expire_in: '过期时间',
     icon: '图标',
+    icon_macos: 'MacOS 图标',
     home_url: '主页地址',
     copy_new_profile_information: '请复制以下账户登录信息，并发送给%{role}',
     validation: {
       name_required: '请输入名称',
       icon_required: '请提供浏览器图标',
+      icon_macOS_required: '请提供macOS浏览器图标',
       home_url_required: '请提供首页地址'
     }
   },
@@ -128,7 +130,7 @@ export default {
     title: '账户类型',
     superadmin: '超级管理员',
     agent: '代理',
-    client: '客户',
+    client: '客户'
   },
   browser: {
     title: '浏览器',
@@ -137,8 +139,12 @@ export default {
     link: '下载地址',
     version: '版本',
     generation_failed: '上次生成失败',
-    generate_windows_browser_confirm: '请确认',
-    generate_windows_browser_confirm_description: '确认生成一个新版本的 Windows 浏览器？',
+    generate_browser_confirm: '请确认',
+    generate_browser_confirm_description: '确认生成一个新版本的 %{platform} 浏览器？',
+    message: {
+      windows_generation_success: 'Windows浏览器生成成功!',
+      version_add_success: '%{platform} 浏览器版本更新!'
+    }
   },
   short_link: {
     title: '短地址',
@@ -147,7 +153,6 @@ export default {
     long: '长地址',
     short: '短地址',
     logo: 'LOGO'
-
   },
   weeks: {
     0: '星期日',
@@ -156,7 +161,7 @@ export default {
     3: '星期三',
     4: '星期四',
     5: '星期五',
-    6: '星期六',
+    6: '星期六'
   },
   errors: {
     RequestTimeout: '请求超时',
