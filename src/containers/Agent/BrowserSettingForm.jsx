@@ -50,7 +50,7 @@ export default class BrowserSettingForm extends React.Component {
         if (initialValues.id) {
           data.homeUrl = homeUrl ? homeUrl.split('\n').filter(l => !!l) : initialValues.homeUrl
         }
-        const isFormData = icon instanceof File
+        const isFormData = icon instanceof File || icon_macos instanceof File
         if (isFormData) data.isFormData = true
         this.setState({ submitting: true })
         save(data).then(response => {
