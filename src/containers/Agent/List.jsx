@@ -32,11 +32,11 @@ export default class List extends React.Component {
     getAgents: T.func.isRequired,
     create: T.func.isRequired,
     status: T.string.isRequired,
-    query: T.object.isRequired,
+    query: T.object.isRequired
   }
 
   static contextTypes = {
-    router: T.object.isRequired,
+    router: T.object.isRequired
   }
 
   state = {
@@ -45,9 +45,9 @@ export default class List extends React.Component {
       pageSize: 10,
       total: this.props.agents.total || 0,
       current: 1,
-      showSizeChanger: true,
+      showSizeChanger: true
     },
-    filters: {},
+    filters: {}
   }
 
   componentWillMount() {
@@ -70,16 +70,15 @@ export default class List extends React.Component {
 
   loadData = () => {
     const { pagination, filters } = this.state
-    this.props.getAgents(pagination, filters)
-      .then(({ error }) => {
-        if (!error) {
-          if (this.mounted) {
-            this.setState({
-              pagination: update(pagination, { total: { $set: this.props.agents.total } }),
-            })
-          }
+    this.props.getAgents(pagination, filters).then(({ error }) => {
+      if (!error) {
+        if (this.mounted) {
+          this.setState({
+            pagination: update(pagination, { total: { $set: this.props.agents.total } })
+          })
         }
-      })
+      }
+    })
   }
 
   handleTableChange = (pager, filters) => {
@@ -90,20 +89,21 @@ export default class List extends React.Component {
     this.loadData()
   }
 
-  getActionsColumn = () => (
-    {
-      title: i18n.t('actions.title'), key: 'actions', width: 200, className: 'align-center',
-      render: ({ id }) => {
-        const actions = []
-        actions.push(
-          <Link to={`/agents/${id}/browser`}>
-            <Icon type="ie" /> {i18n.t('actions.manage+browser.title')}
-          </Link>
-        )
-        return actions
-      }
+  getActionsColumn = () => ({
+    title: i18n.t('actions.title'),
+    key: 'actions',
+    width: 200,
+    className: 'align-center',
+    render: ({ id }) => {
+      const actions = []
+      actions.push(
+        <Link to={`/agents/${id}/browser`}>
+          <Icon type="ie" /> {i18n.t('actions.manage+browser.title')}
+        </Link>
+      )
+      return actions
     }
-  )
+  })
 
   getColumns = () => {
     const columns = ['username & name']
@@ -115,7 +115,7 @@ export default class List extends React.Component {
     this.setState({ newAgentModalVisible: true })
   }
 
-  closeNewAgentModal = (newAgentId) => {
+  closeNewAgentModal = newAgentId => {
     this.setState({ newAgentModalVisible: false })
     if (newAgentId) {
       this.context.router.push(`/agents/${newAgentId}/browser`)
@@ -136,10 +136,9 @@ export default class List extends React.Component {
           pagination={this.state.pagination}
           loading={status === 'LOADING'}
           onChange={this.handleTableChange} />
-        {
-          this.state.newAgentModalVisible &&
+        {this.state.newAgentModalVisible && (
           <NewAgentModal save={this.props.create} close={this.closeNewAgentModal} />
-        }
+        )}
       </Section>
     )
   }

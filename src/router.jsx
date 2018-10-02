@@ -9,6 +9,9 @@ const {
   Agent,
   ShortLink,
   Error,
+  Player,
+  Keyword,
+  BlackAndWhite
 } = containers
 
 export default (
@@ -25,6 +28,15 @@ export default (
         <IndexRoute component={ShortLink.List} />
         <Route path="/shorts/new" component={ShortLink.New} title="actions.add" />
         <Route path="/shorts/:id" component={ShortLink.Item} title="actions.edit" />
+      </Route>
+      <Route path="/player" component={App.ContentWrapper} title="player.title" visible={(user) => user.role === 1}>
+        <IndexRoute component={Player.List} />
+      </Route>
+      <Route path="/keyword" component={App.ContentWrapper} title="keyword.title" visible={(user) => user.role === 1}>
+        <IndexRoute component={Keyword.List} />
+      </Route>
+      <Route path="/black_white_list" component={App.ContentWrapper} title="black_white_list.title" visible={(user) => user.role === 1}>
+        <IndexRoute component={BlackAndWhite.List} />
       </Route>
       <Route path="*" component={App.ContentWrapper}>
         <IndexRoute component={Error.NotFound} />

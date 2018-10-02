@@ -169,5 +169,17 @@ export default {
     AgentDuplicated: '子代理账号已存在',
     ChangePasswordFailed: '修改密码失败，请确认当前密码正确',
     ConnectionRefused: '连接断开，请稍后重试'
+  },
+  keyword: {
+    title: '关键字',
+    name: '关键字'
+  },
+  player: {
+    title: '玩家',
+    name: '玩家'
+  },
+  black_white_list: {
+    title: '黑/白名单',
+    name: '黑/白名单'
   }
 }

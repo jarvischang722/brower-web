@@ -1,5 +1,4 @@
 export default {
-  '': ' ',
   hello: 'Welcome, %{name}',
   from: 'from',
   to: 'to',
@@ -171,5 +170,17 @@ export default {
     AgentDuplicated: 'Agent duplicated',
     ChangePasswordFailed: 'change password failed, please confirm your current password',
     ConnectionRefused: 'Connection refused. Please try again later'
+  },
+  keyword: {
+    title: 'keyword',
+    name: 'keyword'
+  },
+  player: {
+    title: 'player',
+    name: 'player'
+  },
+  black_white_list: {
+    title: 'black/white list',
+    name: 'black/white list'
   }
 }

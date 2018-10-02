@@ -19,7 +19,7 @@ import ListControl from './ListControl'
     }
   },
   {
-    list: ShortLinkActions.actions.list,
+    list: ShortLinkActions.actions.list
   }
 )
 export default class List extends React.Component {
@@ -29,11 +29,11 @@ export default class List extends React.Component {
     shorts: T.object.isRequired,
     list: T.func.isRequired,
     status: T.string.isRequired,
-    query: T.object.isRequired,
+    query: T.object.isRequired
   }
 
   static contextTypes = {
-    router: T.object.isRequired,
+    router: T.object.isRequired
   }
 
   state = {
@@ -41,9 +41,9 @@ export default class List extends React.Component {
       pageSize: 10,
       total: this.props.shorts.total || 0,
       current: 1,
-      showSizeChanger: true,
+      showSizeChanger: true
     },
-    filters: {},
+    filters: {}
   }
 
   componentWillMount() {
@@ -66,16 +66,15 @@ export default class List extends React.Component {
 
   loadData = () => {
     const { pagination, filters } = this.state
-    this.props.list(pagination, filters)
-      .then(({ error }) => {
-        if (!error) {
-          if (this.mounted) {
-            this.setState({
-              pagination: update(pagination, { total: { $set: this.props.shorts.total } }),
-            })
-          }
+    this.props.list(pagination, filters).then(({ error }) => {
+      if (!error) {
+        if (this.mounted) {
+          this.setState({
+            pagination: update(pagination, { total: { $set: this.props.shorts.total } })
+          })
         }
-      })
+      }
+    })
   }
 
   handleTableChange = (pager, filters) => {
@@ -86,18 +85,17 @@ export default class List extends React.Component {
     this.loadData()
   }
 
-  getActionsColumn = () => (
-    {
-      title: i18n.t('actions.title'), key: 'actions', width: 200, className: 'align-center',
-      render: ({ id }) => {
-        const actions = []
-        actions.push(
-          <Link to={`/shorts/${id}`}>{i18n.t('actions.edit')}</Link>
-        )
-        return actions
-      }
+  getActionsColumn = () => ({
+    title: i18n.t('actions.title'),
+    key: 'actions',
+    width: 200,
+    className: 'align-center',
+    render: ({ id }) => {
+      const actions = []
+      actions.push(<Link to={`/shorts/${id}`}>{i18n.t('actions.edit')}</Link>)
+      return actions
     }
-  )
+  })
 
   getColumns = () => {
     const columns = ['image', 'site_name', 'long', 'short']
