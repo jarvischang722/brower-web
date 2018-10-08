@@ -3,7 +3,6 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { Icon, Tag, Input, Tooltip } from 'antd'
 import { KeywordActions } from '../../actions'
-import { promiseTypeSuffixes } from '../../actions/lib/actionTypes'
 
 @connect(
   null,

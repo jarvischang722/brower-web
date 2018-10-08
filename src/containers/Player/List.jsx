@@ -7,12 +7,10 @@ import { Button } from 'antd'
 import { PlayerActions } from '../../actions'
 import { Section } from '../../components'
 import ListControl from './ListControl'
+import Edit from './Edit'
 
 @connect(
-  (state) => {
-    console.log(state)
-    const user = state.user
-    const player = state.player
+  ({ user, player }) => {
     const { data, status } = player
     return {
       user: user.data || {},
@@ -93,11 +91,7 @@ export default class List extends React.Component {
     key: 'actions',
     width: 200,
     className: 'align-center',
-    render: ({ id }) => {
-      const actions = []
-      actions.push(<Link to={`/player/${id}`}>{i18n.t('actions.edit')}</Link>)
-      return actions
-    }
+    render: (text, player) => (<Edit player={player} />)
   })
 
   getColumns = () => {
