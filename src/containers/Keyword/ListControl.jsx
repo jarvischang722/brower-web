@@ -1,8 +1,7 @@
-import url from 'url'
 import React from 'react'
 import T from 'prop-types'
 import { Table, Icon, Tag, Input, Tooltip } from 'antd'
-import api from '../../utils/api'
+import KeywordColumn from './KeywordColumn'
 
 export default class ListControl extends React.Component {
   static propTypes = {
@@ -39,22 +38,6 @@ export default class ListControl extends React.Component {
     </div>
   )
 
-  showInput = () => {
-    this.setState({ inputVisible: true }, () => this.input.focus())
-  }
-
-  handleInputChange = e => {
-    this.setState({ inputValue: e.target.value })
-  }
-
-  handleInputConfirm = () => {
-    const { inputValue } = this.state
-    console.log('inputValue : ', inputValue)
-    this.setState({
-      inputVisible: false,
-      inputValue: ''
-    })
-  }
 
   getColumns = () => {
     const columns = {
@@ -66,7 +49,7 @@ export default class ListControl extends React.Component {
       keywords: {
         title: 'keywords',
         dataIndex: 'keywords',
-        render: this.renderKeywordColumn
+        render: (keywords, row) => <KeywordColumn keywords={keywords} userid={row.id} />
       }
     }
     const result = []
@@ -81,51 +64,6 @@ export default class ListControl extends React.Component {
       }
     })
     return result
-  }
-
-  renderKeywordColumn = (kws) => {
-    const { inputVisible, inputValue } = this.state
-    let content = []
-    if (kws) {
-      content = kws.map(k => {
-        const tag = k.keyword
-        const isLongTag = tag.length > 10
-        const tagElem = (
-          <Tag title={tag} closable key={tag} color="blue">
-            {isLongTag ? `${tag.slice(0, 10)}...` : tag}
-          </Tag>
-        )
-        return isLongTag ? (
-          <Tooltip title={tag} key={tag}>
-            {' '}
-            {tagElem}{' '}
-          </Tooltip>
-        ) : (
-          tagElem
-        )
-      })
-    }
-    content.push(
-      inputVisible && (
-        <Input
-          ref={this.saveInputRef}
-          type="text"
-          size="small"
-          style={{ width: 78 }}
-          value={inputValue}
-          onChange={this.handleInputChange}
-          onBlur={this.handleInputConfirm}
-          onPressEnter={this.handleInputConfirm} />
-      )
-    )
-    content.push(
-      !inputVisible && (
-        <Tag onClick={this.showInput} style={{ background: '#fff', borderStyle: 'dashed' }}>
-          <Icon type="plus" /> New Tag
-        </Tag>
-      )
-    )
-    return content
   }
 
   renderResetButton = () => (
@@ -152,8 +90,6 @@ export default class ListControl extends React.Component {
       {i18n.t('actions.reload')}
     </a>
   )
-
-  saveInputRef = input => (this.input = input)
 
   render() {
     const { dataSource, pagination, loading } = this.props
