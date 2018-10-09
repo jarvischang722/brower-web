@@ -11,7 +11,7 @@ const {
   Error,
   Player,
   Keyword,
-  BlackAndWhite
+  BlackWhite
 } = containers
 
 export default (
@@ -36,7 +36,7 @@ export default (
         <IndexRoute component={Keyword.List} />
       </Route>
       <Route path="/black_white_list" component={App.ContentWrapper} title="black_white_list.title" visible={(user) => user.role === 1}>
-        <IndexRoute component={BlackAndWhite.List} />
+        <IndexRoute component={BlackWhite.List} />
       </Route>
       <Route path="*" component={App.ContentWrapper}>
         <IndexRoute component={Error.NotFound} />

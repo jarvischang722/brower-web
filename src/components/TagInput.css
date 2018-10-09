@@ -1,0 +1,21 @@
+.containertest {
+  border: '1px solid #ddd';
+  padding: '5px';
+  border-radius: '5px';
+  background-color: aquamarine;
+}
+
+.items {
+  display: 'inline-block';
+  padding: '2px';
+  border-radius: '5px';
+  margin-right: '5px';
+  cursor: 'pointer'
+}
+
+.input {
+  outline: 'none';
+  border: 'none';
+  font-size: '14px';
+  font-family: 'Helvetica; sans-serif'
+}

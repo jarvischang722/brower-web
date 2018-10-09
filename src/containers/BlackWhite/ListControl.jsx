@@ -1,8 +1,6 @@
-import url from 'url'
 import React from 'react'
 import T from 'prop-types'
 import { Table, Icon } from 'antd'
-import api from '../../utils/api'
 
 
 export default class ListControl extends React.Component {

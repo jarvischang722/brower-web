@@ -2,11 +2,10 @@ import React from 'react'
 import T from 'prop-types'
 import update from 'immutability-helper'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { Button } from 'antd'
 import { BlackWhiteActions } from '../../actions'
-import { Section } from '../../components'
+import { Section, TagInput } from '../../components'
 import ListControl from './ListControl'
+import Edit from './Edit'
 
 @connect(
   ({ user, blackWhite }) => {
@@ -43,7 +42,8 @@ export default class List extends React.Component {
       current: 1,
       showSizeChanger: true
     },
-    filters: {}
+    filters: {},
+    items: []
   }
 
   componentWillMount() {
@@ -85,16 +85,13 @@ export default class List extends React.Component {
     this.loadData()
   }
 
+
   getActionsColumn = () => ({
     title: i18n.t('actions.title'),
     key: 'actions',
     width: 200,
     className: 'align-center',
-    render: ({ id }) => {
-      const actions = []
-      actions.push(<Link to={`/blackWhite/${id}`}>{i18n.t('actions.edit')}</Link>)
-      return actions
-    }
+    render: (text, agent) => (<Edit agent={agent} loadData={this.loadData} />)
   })
 
   getColumns = () => {
@@ -111,17 +108,16 @@ export default class List extends React.Component {
     const { user, blackWhite, status } = this.props
     if (user.role !== 1) return null
     return (
-      <Section noline compress>
-        <Button type="primary" size="large" className="stext" onClick={this.goCreate}>
-          <i className="sicon icon-add-circle" /> {i18n.t('actions.add + black_white_list.name')}
-        </Button>
-        <ListControl
-          columns={this.getColumns()}
-          dataSource={blackWhite.items}
-          pagination={this.state.pagination}
-          loading={status === 'LOADING'}
-          onChange={this.handleTableChange} />
-      </Section>
+      <div>
+        <Section noline compress>
+          <ListControl
+            columns={this.getColumns()}
+            dataSource={blackWhite.items}
+            pagination={this.state.pagination}
+            loading={status === 'LOADING'}
+            onChange={this.handleTableChange} />
+        </Section>
+      </div>
     )
   }
 }
