@@ -2,7 +2,6 @@ import React from 'react'
 import T from 'prop-types'
 import update from 'immutability-helper'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import { Button } from 'antd'
 import { PlayerActions } from '../../actions'
 import { Section } from '../../components'
@@ -91,7 +90,7 @@ export default class List extends React.Component {
     key: 'actions',
     width: 200,
     className: 'align-center',
-    render: (text, player) => (<Edit player={player} />)
+    render: (text, player) => (<Edit player={player} loadData={this.loadData} />)
   })
 
   getColumns = () => {
@@ -109,9 +108,6 @@ export default class List extends React.Component {
     if (user.role !== 1) return null
     return (
       <Section noline compress>
-        <Button type="primary" size="large" className="stext" onClick={this.goCreate}>
-          <i className="sicon icon-add-circle" /> {i18n.t('actions.add+player.name')}
-        </Button>
         <ListControl
           columns={this.getColumns()}
           dataSource={player.items}

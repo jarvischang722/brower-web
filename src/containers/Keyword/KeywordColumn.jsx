@@ -57,7 +57,6 @@ export default class KeywordColumn extends React.Component {
     const { userid, update } = this.props
     update({ keyword, userid }).then(response => {
       const insertId = response.insertId
-      console.log(response)
       if (insertId) {
         this.setState({ keywords: [...keywords, { id: insertId, keyword, userid }] })
       }

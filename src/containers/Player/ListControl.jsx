@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import T from 'prop-types'
-import { Table, Icon, Switch, DatePicker } from 'antd'
+import { Table, Icon } from 'antd'
 
 export default class ListControl extends React.Component {
   static propTypes = {

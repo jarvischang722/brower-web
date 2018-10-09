@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Row, Col, DatePicker, Icon, Switch } from 'antd'
+import { Modal, Row, Col, DatePicker, Icon, Switch, message } from 'antd'
 import moment from 'moment'
 import T from 'prop-types'
 import { connect } from 'react-redux'
@@ -8,35 +8,60 @@ import { PlayerActions } from '../../actions'
 @connect(
   null,
   {
-    detail: PlayerActions.actions.detail,
-    update: PlayerActions.actions.update
+    updateSta: PlayerActions.actions.updateSta
   }
 )
 export default class Edit extends React.Component {
-  state = { visible: false, datePickerDisable: false, player: {} }
+  state = { visible: false, player: {} }
 
   static propTypes = {
-    player: T.object.isRequired
-  }
-
-  ComponentWillMount() {
-    this.setState({ player: this.props.player })
+    player: T.object.isRequired,
+    updateSta: T.func.isRequired,
+    loadData: T.func.isRequired
   }
 
   showModal = () => {
+    const player = this.props.player
+    player.playerId = player.id
     this.setState({
-      visible: true
+      visible: true,
+      player
     })
   }
 
   hideModal = () => {
     this.setState({
-      visible: false
+      visible: false,
+      player: {}
     })
   }
 
   onSwitchChange(checked) {
-    this.setState({ player: { status: checked } })
+    const player = this.state.player
+    player.status = checked ? '1' : '0'
+    this.setState({ player })
+  }
+
+  onDatePickerChange(date, dateString) {
+    const player = this.state.player
+    player.disable_expire = dateString
+    this.setState({ player })
+  }
+
+  doSave() {
+    const { id: playerId, status, disable_expire: disableExpire } = this.state.player
+    const postData = { playerId, status, disableExpire }
+    postData.disableExpire = status === '1' ? null : disableExpire
+
+    this.props.updateSta(postData).then(response => {
+      if (response) {
+        this.props.loadData()
+        this.hideModal()
+      } else {
+        message.error('Error')
+        console.error(response)
+      }
+    })
   }
 
   render() {
@@ -48,7 +73,7 @@ export default class Edit extends React.Component {
         <Modal
           title={player.name}
           visible={this.state.visible}
-          onOk={this.hideModal}
+          onOk={this.doSave.bind(this)}
           onCancel={this.hideModal}
           okText="Save"
           cancelText="Cancel">
@@ -62,14 +87,19 @@ export default class Edit extends React.Component {
                 defaultChecked={player.status === '1'} />
             </Col>
           </Row>
+          <br />
           <Row gutter={16}>
-            <Col span={12}> Disabled expire</Col>
+            <Col span={12} offset="right">
+              {' '}
+              Disabled expire
+            </Col>
             <Col span={12}>
               <DatePicker
                 format={dateFormat}
-                disabled
+                disabled={player.status === '1'}
                 disabledDate={current => current && current < moment().endOf('day')}
-                defaultValue={player.disable_expire ? moment(player.disable_expire) : ''} />
+                defaultValue={player.disable_expire ? moment(player.disable_expire) : ''}
+                onChange={this.onDatePickerChange.bind(this)} />
             </Col>
           </Row>
         </Modal>
