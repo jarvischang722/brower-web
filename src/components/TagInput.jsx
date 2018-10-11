@@ -58,7 +58,7 @@ export default class TagInput extends React.Component {
         items: allItems,
         input: ''
       })
-      // this.props.onChange(allItems)
+      this.props.onChange(allItems)
     }
 
     if (this.state.items.length && evt.keyCode === 8 && !this.state.input.length) {

@@ -66,7 +66,6 @@ export default class List extends React.Component {
   loadData = () => {
     const { pagination, filters } = this.state
     this.props.list(pagination, filters).then(({ error }) => {
-      console.log('loadData')
       if (!error) {
         if (this.mounted) {
           this.setState({

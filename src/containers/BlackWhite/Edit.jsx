@@ -46,10 +46,10 @@ class Edit extends React.Component {
     const postData = { userid, whiteList, blackList }
     const { loadData } = this.props
     if (Array.isArray(postData.blackList)) {
-      postData.blackList = postData.blackList.map((d) => d.value).join(',')
+      postData.blackList = postData.blackList.map(d => d.value).join(',')
     }
     if (Array.isArray(postData.whiteList)) {
-      postData.whiteList = postData.whiteList.map((d) => d.value).join(',')
+      postData.whiteList = postData.whiteList.map(d => d.value).join(',')
     }
 
     this.props.update(postData).then(response => {
@@ -90,14 +90,14 @@ class Edit extends React.Component {
           <Row gutter={16}>
             <Col span={4}>Black List</Col>
             <Col span={12}>
-              <TagInput items={agent.black_list} />
+              <TagInput items={agent.black_list} onChange={this.onChangeBlackList} />
             </Col>
           </Row>
           <br />
           <Row gutter={16}>
             <Col span={4}>White List</Col>
             <Col span={12}>
-              <TagInput items={agent.white_list} />
+              <TagInput items={agent.white_list} onChange={this.onChangeWhiteList} />
             </Col>
           </Row>
         </Modal>
