@@ -1,6 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
-import { Table, Icon } from 'antd'
+import { Table, Icon, Tag } from 'antd'
 
 
 export default class ListControl extends React.Component {
@@ -39,10 +39,12 @@ export default class ListControl extends React.Component {
         render: (name) => name || <i style={{ color: '#ccc' }}>{i18n.t('none')}</i>
       },
       black_list: {
-        title: 'black list', dataIndex: 'black_list'
+        title: 'black list', dataIndex: 'black_list',
+        render: this.renderListCol
       },
       white_list: {
-        title: 'white list', dataIndex: 'white_list'
+        title: 'white list', dataIndex: 'white_list',
+        render: this.renderListCol
       },
     }
     const result = []
@@ -57,6 +59,14 @@ export default class ListControl extends React.Component {
       }
     })
     return result
+  }
+
+  renderListCol= (item) => {
+    let list = item
+    if (list !== null && typeof list === 'string') {
+      list = list.split(',').map(d => (<Tag >{d}</Tag>))
+    }
+    return list
   }
 
   renderResetButton = () =>

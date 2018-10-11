@@ -1,8 +1,9 @@
 import React from 'react'
-import { Modal, Row, Col, Input, message } from 'antd'
+import { Modal, Row, Col, message } from 'antd'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { BlackWhiteActions } from '../../actions'
+import { TagInput } from '../../components'
 
 @connect(
   null,
@@ -10,13 +11,19 @@ import { BlackWhiteActions } from '../../actions'
     update: BlackWhiteActions.actions.update
   }
 )
-export default class Edit extends React.Component {
-  state = { visible: false, agent: {} }
-
+class Edit extends React.Component {
   static propTypes = {
     agent: T.object.isRequired,
     update: T.func.isRequired,
     loadData: T.func.isRequired
+  }
+  constructor(props) {
+    super(props)
+
+    this.state = { visible: false, agent: {} }
+    this.onChangeBlackList = this.onChangeBlackList.bind(this)
+    this.onChangeWhiteList = this.onChangeWhiteList.bind(this)
+    this.doSave = this.doSave.bind(this)
   }
 
   showModal = () => {
@@ -34,13 +41,20 @@ export default class Edit extends React.Component {
     })
   }
 
-
   doSave() {
     const { userid, white_list: whiteList, black_list: blackList } = this.state.agent
     const postData = { userid, whiteList, blackList }
+    const { loadData } = this.props
+    if (Array.isArray(postData.blackList)) {
+      postData.blackList = postData.blackList.map((d) => d.value).join(',')
+    }
+    if (Array.isArray(postData.whiteList)) {
+      postData.whiteList = postData.whiteList.map((d) => d.value).join(',')
+    }
+
     this.props.update(postData).then(response => {
       if (response) {
-        this.props.loadData()
+        loadData()
         this.hideModal()
       } else {
         message.error('Error')
@@ -49,15 +63,13 @@ export default class Edit extends React.Component {
     })
   }
 
-  onChangeBlackList(evt) {
-    const value = evt.target.value
+  onChangeBlackList(value) {
     const agent = this.state.agent
     agent.black_list = value
     this.setState({ agent })
   }
 
-  onChangeWhiteList(evt) {
-    const value = evt.target.value
+  onChangeWhiteList(value) {
     const agent = this.state.agent
     agent.white_list = value
     this.setState({ agent })
@@ -71,21 +83,21 @@ export default class Edit extends React.Component {
         <Modal
           title={agent.name}
           visible={this.state.visible}
-          onOk={this.doSave.bind(this)}
+          onOk={this.doSave}
           onCancel={this.hideModal}
           okText="Save"
           cancelText="Cancel">
           <Row gutter={16}>
-            <Col span={12}>Black List</Col>
+            <Col span={4}>Black List</Col>
             <Col span={12}>
-              <Input value={agent.black_list} onChange={this.onChangeBlackList.bind(this)} />
+              <TagInput items={agent.black_list} />
             </Col>
           </Row>
           <br />
           <Row gutter={16}>
-            <Col span={12}>White List</Col>
+            <Col span={4}>White List</Col>
             <Col span={12}>
-              <Input value={agent.white_list} onChange={this.onChangeWhiteList.bind(this)} />
+              <TagInput items={agent.white_list} />
             </Col>
           </Row>
         </Modal>
@@ -93,3 +105,5 @@ export default class Edit extends React.Component {
     )
   }
 }
+
+export default Edit

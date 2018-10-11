@@ -3,7 +3,7 @@ import T from 'prop-types'
 import update from 'immutability-helper'
 import { connect } from 'react-redux'
 import { BlackWhiteActions } from '../../actions'
-import { Section, TagInput } from '../../components'
+import { Section } from '../../components'
 import ListControl from './ListControl'
 import Edit from './Edit'
 
@@ -42,8 +42,7 @@ export default class List extends React.Component {
       current: 1,
       showSizeChanger: true
     },
-    filters: {},
-    items: []
+    filters: {}
   }
 
   componentWillMount() {
@@ -67,6 +66,7 @@ export default class List extends React.Component {
   loadData = () => {
     const { pagination, filters } = this.state
     this.props.list(pagination, filters).then(({ error }) => {
+      console.log('loadData')
       if (!error) {
         if (this.mounted) {
           this.setState({
