@@ -4,6 +4,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { BlackWhiteActions } from '../../actions'
 import { TagInput } from '../../components'
+import ip from 'ip'
 
 @connect(
   null,
@@ -43,18 +44,13 @@ class Edit extends React.Component {
 
   doSave() {
     const { userid, white_list: whiteList, black_list: blackList } = this.state.agent
-    const postData = { userid, whiteList, blackList }
-    const { loadData } = this.props
-    if (Array.isArray(postData.blackList)) {
-      postData.blackList = postData.blackList.map(d => d.value).join(',')
+    const postData = this.preCheckPostData({ userid, whiteList, blackList })
+    if (postData === null) {
+      return
     }
-    if (Array.isArray(postData.whiteList)) {
-      postData.whiteList = postData.whiteList.map(d => d.value).join(',')
-    }
-
     this.props.update(postData).then(response => {
       if (response) {
-        loadData()
+        this.props.loadData()
         this.hideModal()
       } else {
         message.error('Error')
@@ -63,15 +59,66 @@ class Edit extends React.Component {
     })
   }
 
+  preCheckPostData(afterData) {
+    const postData = afterData
+    const listType = ['blackList', 'whiteList']
+    let isValid = true
+    for (let tIdx = 0; tIdx < listType.length; tIdx++) {
+      const type = listType[tIdx]
+      let list = postData[type]
+      if (!Array.isArray(list)) {
+        list = list.split(',').filter(val => val !== '')
+      }
+      postData[type] = list.join(',')
+      if (list.length > 0 && !this.checkIpFormat(list)) {
+        message.error(`please check [${type} ] ip format`)
+        isValid = false
+        break
+      }
+    }
+
+    if (!isValid) return null
+
+    return postData
+  }
+
+  checkIpFormat(list) {
+    let isV4Format = true
+    if (list.length > 0) {
+      for (let idx = 0; idx < list.length; idx++) {
+        const theIP = list[idx]
+        if (!ip.isV4Format(theIP)) {
+          isV4Format = false
+          break
+        }
+      }
+    }
+    return isV4Format
+  }
+
   onChangeBlackList(value) {
     const agent = this.state.agent
-    agent.black_list = value
+    agent.black_list =
+      value !== null && Array.isArray(value) ? value.map(d => d.value).join(',') : agent.black_list
     this.setState({ agent })
   }
 
   onChangeWhiteList(value) {
     const agent = this.state.agent
-    agent.white_list = value
+    agent.white_list =
+      value !== null && Array.isArray(value) ? value.map(d => d.value).join(',') : agent.black_list
+    this.setState({ agent })
+  }
+
+  onCloseBlackList(items) {
+    const agent = this.state.agent
+    agent.black_list = items
+    this.setState({ agent })
+  }
+
+  onCloseWhiteList(items) {
+    const agent = this.state.agent
+    agent.white_list = items
     this.setState({ agent })
   }
 
@@ -83,21 +130,21 @@ class Edit extends React.Component {
         <Modal
           title={agent.name}
           visible={this.state.visible}
-          onOk={this.doSave}
+          onOk={this.doSave.bind(this)}
           onCancel={this.hideModal}
           okText="Save"
           cancelText="Cancel">
           <Row gutter={16}>
             <Col span={4}>Black List</Col>
             <Col span={12}>
-              <TagInput items={agent.black_list} onChange={this.onChangeBlackList} />
+              <TagInput items={agent.black_list} onChange={this.onChangeBlackList.bind(this)} onClose={this.onCloseBlackList.bind(this)} />
             </Col>
           </Row>
           <br />
           <Row gutter={16}>
             <Col span={4}>White List</Col>
             <Col span={12}>
-              <TagInput items={agent.white_list} onChange={this.onChangeWhiteList} />
+              <TagInput items={agent.white_list} onChange={this.onChangeWhiteList.bind(this)} onClose={this.onCloseWhiteList.bind(this)} />
             </Col>
           </Row>
         </Modal>

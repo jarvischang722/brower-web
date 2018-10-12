@@ -99,10 +99,6 @@ export default class List extends React.Component {
     return columns
   }
 
-  goCreate = () => {
-    this.context.router.push('/blackWhite/new')
-  }
-
   render() {
     const { user, blackWhite, status } = this.props
     if (user.role !== 1) return null

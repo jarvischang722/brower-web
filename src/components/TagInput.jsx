@@ -5,12 +5,13 @@ import random from '../utils/random'
 
 export default class TagInput extends React.Component {
   static propTypes = {
-    parentIns: T.object.isRequired,
     onChange: T.func.isRequired,
-    onDelete: T.func.isRequired,
+    onClose: T.func.isRequired,
     items: T.array
   }
-
+  static defaultProps = {
+    items: []
+  }
   constructor(props) {
     super(props)
 
@@ -43,15 +44,13 @@ export default class TagInput extends React.Component {
     return newItems
   }
 
-
   handleInputChange(evt) {
     this.setState({ input: evt.target.value })
   }
 
   handleInputKeyDown(evt) {
-    if (evt.target.value === '') return
-
     if (evt.keyCode === 9 || evt.keyCode === 13) {
+      if (evt.target.value === '') return
       const { value } = evt.target
       const allItems = [...this.state.items, { key: random(4), value }]
       this.setState({
@@ -69,9 +68,9 @@ export default class TagInput extends React.Component {
   }
 
   handleRemoveItem(key) {
-    this.setState({
-      items: this.state.items.filter(item => item.key !== key)
-    })
+    const items = this.state.items.filter(item => item.key !== key)
+    this.setState({ items })
+    this.props.onClose(items)
   }
 
   getStyles() {

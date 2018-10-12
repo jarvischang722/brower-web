@@ -4,6 +4,7 @@ import moment from 'moment'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { PlayerActions } from '../../actions'
+import { TagInput } from '../../components'
 
 @connect(
   null,
