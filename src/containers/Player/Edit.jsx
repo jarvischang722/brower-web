@@ -72,6 +72,7 @@ export default class Edit extends React.Component {
       <div>
         <a onClick={this.showModal}>Edit</a>
         <Modal
+          maskClosable={false}
           title={player.name}
           visible={this.state.visible}
           onOk={this.doSave.bind(this)}

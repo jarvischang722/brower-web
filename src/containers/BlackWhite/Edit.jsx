@@ -87,7 +87,7 @@ class Edit extends React.Component {
     if (list.length > 0) {
       for (let idx = 0; idx < list.length; idx++) {
         const theIP = list[idx]
-        if (!ip.isV4Format(theIP)) {
+        if (!ip.isV4Format(theIP.split('/')[0])) {
           isV4Format = false
           break
         }
@@ -128,6 +128,7 @@ class Edit extends React.Component {
       <div>
         <a onClick={this.showModal}>Edit</a>
         <Modal
+          maskClosable={false}
           title={agent.name}
           visible={this.state.visible}
           onOk={this.doSave.bind(this)}
