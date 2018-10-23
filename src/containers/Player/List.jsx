@@ -2,7 +2,6 @@ import React from 'react'
 import T from 'prop-types'
 import update from 'immutability-helper'
 import { connect } from 'react-redux'
-import { Button } from 'antd'
 import { PlayerActions } from '../../actions'
 import { Section } from '../../components'
 import ListControl from './ListControl'
@@ -65,8 +64,9 @@ export default class List extends React.Component {
   }
 
   loadData = () => {
-    const { pagination, filters } = this.state
-    this.props.list(pagination, filters).then(({ error }) => {
+    const { pagination } = this.state
+    const { current, pageSize } = pagination
+    this.props.list(current, pageSize).then(({ error }) => {
       if (!error) {
         if (this.mounted) {
           this.setState({
