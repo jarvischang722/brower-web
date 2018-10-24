@@ -161,7 +161,7 @@ export default class BrowserSettingForm extends React.Component {
               {i18n.t('profile.icon')}
               <br />
               {editable ? (
-                <span style={{ color: 'red', fontWeight: 500 }}>(Only .ico file)</span>
+                <span style={{ color: 'red', fontWeight: 500 }}>(Only .ico )</span>
               ) : (
                 ''
               )}
@@ -180,7 +180,7 @@ export default class BrowserSettingForm extends React.Component {
               {i18n.t('profile.icon_macos')}
               <br />
               {editable ? (
-                <span style={{ color: 'red', fontWeight: 500 }}>(Only .png file)</span>
+                <span style={{ color: 'red', fontWeight: 500 }}>(Only 512 x 512 .png )</span>
               ) : (
                 ''
               )}
