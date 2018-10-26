@@ -65,10 +65,7 @@ export default class KeywordColumn extends React.Component {
 
   handleClose(tagId) {
     const keywordsOfDel = [tagId]
-    const { deleteKeyword } = this.props
-    deleteKeyword({ keywordList: keywordsOfDel }).then(response => {
-      console.log(response)
-    })
+    this.props.deleteKeyword({ keywordList: keywordsOfDel }).then(response => {})
   }
 
   saveInputRef = input => (this.input = input)
