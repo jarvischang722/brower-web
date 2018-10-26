@@ -126,7 +126,7 @@ class Edit extends React.Component {
     const { agent } = this.state
     return (
       <div>
-        <a onClick={this.showModal}>Edit</a>
+        <a onClick={this.showModal}>{i18n.t('actions.edit')}</a>
         <Modal
           maskClosable={false}
           title={agent.name}
@@ -136,14 +136,14 @@ class Edit extends React.Component {
           okText="Save"
           cancelText="Cancel">
           <Row gutter={16}>
-            <Col span={4}>Black List</Col>
+            <Col span={4}>{i18n.t('black_white_list.black')}</Col>
             <Col span={12}>
               <TagInput items={agent.black_list} onChange={this.onChangeBlackList.bind(this)} onClose={this.onCloseBlackList.bind(this)} />
             </Col>
           </Row>
           <br />
           <Row gutter={16}>
-            <Col span={4}>White List</Col>
+            <Col span={4}>{i18n.t('black_white_list.white')}</Col>
             <Col span={12}>
               <TagInput items={agent.white_list} onChange={this.onChangeWhiteList.bind(this)} onClose={this.onCloseWhiteList.bind(this)} />
             </Col>

@@ -1,6 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
-import { Table, Icon, Tag, Input, Tooltip } from 'antd'
+import { Table, Icon } from 'antd'
 import KeywordColumn from './KeywordColumn'
 
 export default class ListControl extends React.Component {
@@ -42,12 +42,12 @@ export default class ListControl extends React.Component {
   getColumns = () => {
     const columns = {
       name: {
-        title: 'name',
+        title: i18n.t('profile.name'),
         dataIndex: 'name',
         render: name => name || <i style={{ color: '#ccc' }}>{i18n.t('none')}</i>
       },
       keywords: {
-        title: 'keywords',
+        title: i18n.t('keyword.title'),
         dataIndex: 'keywords',
         render: (keywords, row) => <KeywordColumn keywords={keywords} userid={row.id} />
       }

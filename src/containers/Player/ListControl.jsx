@@ -36,17 +36,17 @@ export default class ListControl extends React.Component {
   getColumns = () => {
     const columns = {
       username: {
-        title: 'username',
+        title: i18n.t('auth.username'),
         dataIndex: 'username',
         render: name => name || <i style={{ color: '#ccc' }}>{i18n.t('none')}</i>
       },
       name: {
-        title: 'name',
+        title: i18n.t('profile.name'),
         dataIndex: 'name',
         render: name => name || <i style={{ color: '#ccc' }}>{i18n.t('none')}</i>
       },
       status: {
-        title: 'status',
+        title: i18n.t('player.status'),
         dataIndex: 'status',
         render: (status, row) =>
           status === '1' ? (
@@ -56,7 +56,7 @@ export default class ListControl extends React.Component {
           )
       },
       disable_expire: {
-        title: 'disable expire',
+        title: i18n.t('player.disabled_expire'),
         dataIndex: 'disable_expire',
         render: (date, row) => date ? moment(date).format('YYYY/MM/DD') : 'N/A'
       }

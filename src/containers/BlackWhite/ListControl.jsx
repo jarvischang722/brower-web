@@ -38,17 +38,17 @@ export default class ListControl extends React.Component {
   getColumns = () => {
     const columns = {
       name: {
-        title: 'name',
+        title: i18n.t('profile.name'),
         dataIndex: 'name',
         render: name => name || <i style={{ color: '#ccc' }}>{i18n.t('none')}</i>
       },
       black_list: {
-        title: 'black list',
+        title: i18n.t('black_white_list.black'),
         dataIndex: 'black_list',
         render: this.renderListCol
       },
       white_list: {
-        title: 'white list',
+        title: i18n.t('black_white_list.white'),
         dataIndex: 'white_list',
         render: this.renderListCol
       }

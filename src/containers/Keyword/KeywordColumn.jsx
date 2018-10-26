@@ -115,7 +115,7 @@ export default class KeywordColumn extends React.Component {
           onClick={this.showInput}
           key={Math.random()}
           style={{ background: '#fff', borderStyle: 'dashed' }}>
-          <Icon type="plus" /> New Tag
+          <Icon type="plus" /> {i18n.t('keyword.new_tag')}
         </Tag>
       )
     )

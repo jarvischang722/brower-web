@@ -172,14 +172,19 @@ export default {
   },
   keyword: {
     title: '关键字',
-    name: '关键字'
+    name: '关键字',
+    new_tag: 'New Tag'
   },
   player: {
     title: '玩家',
-    name: '玩家'
+    name: '玩家',
+    status: 'Status',
+    disabled_expire: 'Disabled expire'
   },
   black_white_list: {
     title: '黑/白名单',
-    name: '黑/白名单'
+    name: '黑/白名单',
+    black: '黑名单',
+    white: '白名单'
   }
 }

@@ -172,15 +172,20 @@ export default {
     ConnectionRefused: 'Connection refused. Please try again later'
   },
   keyword: {
-    title: 'keyword',
-    name: 'keyword'
+    title: 'keywords',
+    name: 'keyword',
+    new_tag: 'New Tag'
   },
   player: {
     title: 'player',
-    name: 'player'
+    name: 'player',
+    status: 'Status',
+    disabled_expire: 'Disabled expire'
   },
   black_white_list: {
     title: 'black/white list',
-    name: 'black/white list'
+    name: 'black/white list',
+    black: 'Black List',
+    white: 'White List'
   }
 }

@@ -4,7 +4,6 @@ import moment from 'moment'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { PlayerActions } from '../../actions'
-import { TagInput } from '../../components'
 
 @connect(
   null,
@@ -70,7 +69,7 @@ export default class Edit extends React.Component {
     const { player } = this.state
     return (
       <div>
-        <a onClick={this.showModal}>Edit</a>
+        <a onClick={this.showModal}>{i18n.t('actions.edit')}</a>
         <Modal
           maskClosable={false}
           title={player.name}
@@ -80,7 +79,7 @@ export default class Edit extends React.Component {
           okText="Save"
           cancelText="Cancel">
           <Row gutter={16}>
-            <Col span={12}> Status</Col>
+            <Col span={12}> {i18n.t('player.status')}</Col>
             <Col span={12}>
               <Switch
                 onChange={this.onSwitchChange.bind(this)}
@@ -92,8 +91,7 @@ export default class Edit extends React.Component {
           <br />
           <Row gutter={16}>
             <Col span={12} offset="right">
-              {' '}
-              Disabled expire
+              {i18n.t('player.disabled_expire')}
             </Col>
             <Col span={12}>
               <DatePicker
