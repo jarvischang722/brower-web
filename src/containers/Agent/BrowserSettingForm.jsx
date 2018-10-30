@@ -96,7 +96,9 @@ export default class BrowserSettingForm extends React.Component {
         break
       case 'icon_macos':
         rules.push({ required: true, message: i18n.t('profile.validation.icon_macOS_required') })
-        component = <Upload strictFileType=".png" content={iconMacOSPreview} width={80} height={80} />
+        component = (
+          <Upload strictFileType=".png" content={iconMacOSPreview} width={80} height={80} />
+        )
         break
       // case 'expireIn':
       //   initialValue = initialValue ? moment(initialValue) : undefined
@@ -152,14 +154,38 @@ export default class BrowserSettingForm extends React.Component {
         <WrappedFormItem {...formItemLayout} label={i18n.t('profile.name')}>
           {editable ? this.field('name') : initialValues.name}
         </WrappedFormItem>
-        <WrappedFormItem {...formItemLayout} label={i18n.t('profile.icon')}>
+        <WrappedFormItem
+          {...formItemLayout}
+          label={
+            <span>
+              {i18n.t('profile.icon')}
+              <br />
+              {editable ? (
+                <span style={{ color: 'red', fontWeight: 500 }}>(Only .ico )</span>
+              ) : (
+                ''
+              )}
+            </span>
+          }>
           {editable ? (
             this.field('icon')
           ) : (
             <img src={iconPreview} style={{ width: 80, height: 80 }} alt="icon" />
           )}
         </WrappedFormItem>
-        <WrappedFormItem {...formItemLayout} label={i18n.t('profile.icon_macos')}>
+        <WrappedFormItem
+          {...formItemLayout}
+          label={
+            <span>
+              {i18n.t('profile.icon_macos')}
+              <br />
+              {editable ? (
+                <span style={{ color: 'red', fontWeight: 500 }}>(Only 512 x 512 .png )</span>
+              ) : (
+                ''
+              )}
+            </span>
+          }>
           {editable ? (
             this.field('icon_macos')
           ) : (
