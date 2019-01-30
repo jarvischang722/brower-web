@@ -120,6 +120,7 @@ export default {
     icon_macos: 'icon for macOS',
     home_url: 'home URLs',
     copy_new_profile_information: 'Please copy the login information and send to %{role}',
+    enable_vpn: 'Enable Vpn',
     validation: {
       name_required: 'name is required',
       icon_required: 'icon is required',

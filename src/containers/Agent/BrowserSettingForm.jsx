@@ -1,6 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
-import { Form, Input, Button, Col } from 'antd'
+import { Form, Input, Button, Col, Switch, Icon } from 'antd'
 import { Section, WrappedFormItem, Upload } from '../../components'
 import { formLayout } from '../../constant'
 
@@ -41,12 +41,13 @@ export default class BrowserSettingForm extends React.Component {
     const { form, save } = this.props
     form.validateFieldsAndScroll({ scroll: { offsetTop: 120 } }, (err, values) => {
       if (!err) {
-        const { name, icon, icon_macos, homeUrl } = values
+        const { name, icon, icon_macos, homeUrl, enable_vpn } = values
         const data = {}
         if (initialValues.id) data.id = initialValues.id
         data.name = name
         data.icon = icon || ''
         data.icon_macos = icon_macos || ''
+        data.enable_vpn = enable_vpn === true ? 1 : 0 
         if (initialValues.id) {
           data.homeUrl = homeUrl ? homeUrl.split('\n').filter(l => !!l) : initialValues.homeUrl
         }
@@ -100,12 +101,11 @@ export default class BrowserSettingForm extends React.Component {
           <Upload strictFileType=".png" content={iconMacOSPreview} width={80} height={80} />
         )
         break
-      // case 'expireIn':
-      //   initialValue = initialValue ? moment(initialValue) : undefined
-      //   component = (
-      //     <DatePicker />
-      //   )
-      //   break
+
+      case 'enable_vpn':
+        component = <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked={initialValue === 1}/>
+        break
+     
       default:
     }
     return form.getFieldDecorator(name, { rules, initialValue, ...props })(component)
@@ -143,6 +143,12 @@ export default class BrowserSettingForm extends React.Component {
     )
   }
 
+  renderEnableVpn = enable => {
+    return (
+      <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} disabled defaultChecked={enable === 1} />
+    )
+  }
+
   render() {
     const { editable, iconPreview, iconMacOSPreview } = this.props
     const { initialValues } = this.state
@@ -160,11 +166,7 @@ export default class BrowserSettingForm extends React.Component {
             <span>
               {i18n.t('profile.icon')}
               <br />
-              {editable ? (
-                <span style={{ color: 'red', fontWeight: 500 }}>(Only .ico )</span>
-              ) : (
-                ''
-              )}
+              {editable ? <span style={{ color: 'red', fontWeight: 500 }}>(Only .ico )</span> : ''}
             </span>
           }>
           {editable ? (
@@ -194,6 +196,9 @@ export default class BrowserSettingForm extends React.Component {
         </WrappedFormItem>
         <WrappedFormItem {...formItemLayout} label={i18n.t('profile.home_url')}>
           {editable ? this.field('homeUrl') : this.renderHomeUrls(initialValues.homeUrl)}
+        </WrappedFormItem>
+        <WrappedFormItem {...formItemLayout} label={i18n.t('profile.enable_vpn')}>
+          {editable ? this.field('enable_vpn') : this.renderEnableVpn(initialValues.enable_vpn)  }
         </WrappedFormItem>
         {editable ? (
           <Section width={600}>
