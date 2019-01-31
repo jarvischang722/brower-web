@@ -9,7 +9,7 @@ global.i18n = {
   l: (value, options) => I18n.l(value, options),
   t(key, replacement) {
     const arr = key.split('+')
-    return arr.map(k => I18n.t(k.trim(), replacement)).join(I18n.t(''))
+    return arr.map(k => I18n.t(k.trim(), replacement)).join(I18n.t(' '))
   },
   forceComponentsUpdate() {
     I18n.forceComponentsUpdate()

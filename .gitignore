@@ -17,3 +17,5 @@ src/config.json
 
 // yarn
 .yarnclean
+
+yarn.lock
