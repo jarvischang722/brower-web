@@ -119,6 +119,7 @@ export default {
     icon_macos: 'MacOS 图标',
     home_url: '主页地址',
     enable_vpn: '啟用VPN',
+    ss_domain: 'SS Domain',
     copy_new_profile_information: '请复制以下账户登录信息，并发送给%{role}',
     validation: {
       name_required: '请输入名称',

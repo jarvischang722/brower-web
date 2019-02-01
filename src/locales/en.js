@@ -9,11 +9,11 @@ export default {
   auth: {
     login: 'Login',
     logout: 'Logout',
-    username: 'username',
-    password: 'password',
-    change_password: 'change password',
-    old_password: 'current password',
-    new_password: 'new password',
+    username: 'Username',
+    password: 'Password',
+    change_password: 'Change password',
+    old_password: 'Current password',
+    new_password: 'New password',
     confirm_new_password: 'confirm new password',
     validation: {
       username_required: 'username required',
@@ -121,6 +121,7 @@ export default {
     home_url: 'Home URLs',
     copy_new_profile_information: 'Please copy the login information and send to %{role}',
     enable_vpn: 'Enable Vpn',
+    ss_domain: 'SS Domain',
     validation: {
       name_required: 'name is required',
       icon_required: 'icon is required',

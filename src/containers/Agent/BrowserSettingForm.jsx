@@ -31,25 +31,30 @@ export default class BrowserSettingForm extends React.Component {
 
   state = {
     submitting: false,
-    initialValues: this.props.initialValues
+    initialValues: this.props.initialValues,
+    enableSS: false
   }
 
   handleSubmit = e => {
     if (e && e.preventDefault) e.preventDefault()
-    const { submitting, initialValues } = this.state
+    const { submitting, initialValues, enableSS } = this.state
     if (submitting) return
     const { form, save } = this.props
+
     form.validateFieldsAndScroll({ scroll: { offsetTop: 120 } }, (err, values) => {
       if (!err) {
-        const { name, icon, icon_macos, homeUrl, enable_vpn } = values
+        const { name, icon, icon_macos, homeUrl,  ss_domain } = values
         const data = {}
         if (initialValues.id) data.id = initialValues.id
         data.name = name
         data.icon = icon || ''
         data.icon_macos = icon_macos || ''
-        data.enable_vpn = enable_vpn === true ? 1 : 0 
+        data.enable_vpn = enableSS ? 1 : 0
         if (initialValues.id) {
           data.homeUrl = homeUrl ? homeUrl.split('\n').filter(l => !!l) : initialValues.homeUrl
+          data.ss_domain = ss_domain
+            ? ss_domain.split('\n').filter(l => !!l)
+            : initialValues.ss_domain
         }
         const isFormData = icon instanceof File || icon_macos instanceof File
         if (isFormData) data.isFormData = true
@@ -67,6 +72,8 @@ export default class BrowserSettingForm extends React.Component {
 
   field = name => {
     const { form, iconPreview, iconMacOSPreview } = this.props
+    const { enableSS } = this.state
+
     const rules = []
     const props = {}
     let initialValue = this.state.initialValues[name]
@@ -101,11 +108,34 @@ export default class BrowserSettingForm extends React.Component {
           <Upload strictFileType=".png" content={iconMacOSPreview} width={80} height={80} />
         )
         break
-
       case 'enable_vpn':
-        component = <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked={initialValue === 1}/>
+        component = (
+          <div>
+            <Switch
+              checkedChildren={<Icon type="check" />}
+              unCheckedChildren={<Icon type="close" />}
+              onChange={checked => {
+                this.state.enableSS = checked
+              }}
+              defaultChecked={enableSS} />
+          </div>
+        )
         break
-     
+      case 'ss_domain':
+        initialValue = initialValue ? initialValue.join('\n') : ''
+        component = (
+          <TextArea
+            autosize={{ minRows: 3 }}
+            className="monospace"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
+            wrap="off"
+            style={{ whiteSpace: 'pre', fontSize: 13 }} />
+        )
+        break
+
       default:
     }
     return form.getFieldDecorator(name, { rules, initialValue, ...props })(component)
@@ -129,24 +159,31 @@ export default class BrowserSettingForm extends React.Component {
     else this.props.onUpdateState(false)
   }
 
-  renderHomeUrls = homeUrl => {
-    if (!homeUrl || homeUrl.length === 0) return '-'
+  renderUrls = urls => {
+    if (!urls || urls.length === 0) return '-'
     return (
       <Col
         span={20}
         className="monospace"
         style={{ lineHeight: '19px', padding: '11px 0', width: '100%' }}>
-        {homeUrl.map(u => (
-          <div>{u}</div>
+        {urls.map(d => (
+          <div>{d}</div>
         ))}
       </Col>
     )
   }
 
-  renderEnableVpn = enable => {
-    return (
-      <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} disabled defaultChecked={enable === 1} />
-    )
+  renderEnableVpn = enable => (
+    <Switch
+      checkedChildren={<Icon type="check" />}
+      unCheckedChildren={<Icon type="close" />}
+      disabled
+      defaultChecked={enable === 1} />
+  )
+
+  componentDidMount() {
+    const { initialValues } = this.state
+    this.setState({ enableSS: initialValues.enable_vpn === 1 })
   }
 
   render() {
@@ -195,10 +232,13 @@ export default class BrowserSettingForm extends React.Component {
           )}
         </WrappedFormItem>
         <WrappedFormItem {...formItemLayout} label={i18n.t('profile.home_url')}>
-          {editable ? this.field('homeUrl') : this.renderHomeUrls(initialValues.homeUrl)}
+          {editable ? this.field('homeUrl') : this.renderUrls(initialValues.homeUrl)}
         </WrappedFormItem>
         <WrappedFormItem {...formItemLayout} label={i18n.t('profile.enable_vpn')}>
-          {editable ? this.field('enable_vpn') : this.renderEnableVpn(initialValues.enable_vpn)  }
+          {editable ? this.field('enable_vpn') : this.renderEnableVpn(initialValues.enable_vpn)}
+        </WrappedFormItem>
+        <WrappedFormItem {...formItemLayout} label={i18n.t('profile.ss_domain')}>
+          {editable ? this.field('ss_domain') : this.renderUrls(initialValues.ss_domain)}
         </WrappedFormItem>
         {editable ? (
           <Section width={600}>
