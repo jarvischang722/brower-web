@@ -22,8 +22,19 @@ export default class Profile extends React.Component {
     confirmVisible: false
   }
 
-  confirmDelete = () => {
-    this.setState({ confirmVisible: true })
+  openDeleteConfirm = () => {
+    const { username } = this.props
+    Modal.confirm({
+      title: 'Delete',
+      icon: 'delete',
+      iconType: 'delete',
+      onOk: this.deleteAgent,
+      onCancel: this.hideConfirm,
+      content: i18n.t('agent.message.delete.confirm', { username }),
+      okText: i18n.t('actions.confirm'),
+      cancelText: i18n.t('actions.cancel'),
+      maskClosable: false
+    })
   }
 
   hideConfirm = () => {
@@ -46,23 +57,10 @@ export default class Profile extends React.Component {
       color: 'red',
       paddingLeft: '10px'
     }
-    const { username } = this.props
     return (
-      <div>
-        <a onClick={this.confirmDelete} style={delOfStyle}>
-          <Icon type="delete" /> {i18n.t('actions.remove')}
-        </a>
-        <Modal
-          title="Delete"
-          visible={this.state.confirmVisible}
-          onOk={this.deleteAgent}
-          onCancel={this.hideConfirm}
-          maskClosable={false}
-          okText={i18n.t('actions.confirm')}
-          cancelText={i18n.t('actions.cancel')}>
-          <p>{i18n.t('agent.message.delete.confirm', { username })}</p>
-        </Modal>
-      </div>
+      <a onClick={this.openDeleteConfirm} style={delOfStyle}>
+        <Icon type="delete" /> {i18n.t('actions.remove')}
+      </a>
     )
   }
 }
