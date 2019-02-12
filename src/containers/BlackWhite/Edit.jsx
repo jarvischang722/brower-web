@@ -66,6 +66,7 @@ class Edit extends React.Component {
     for (let tIdx = 0; tIdx < listType.length; tIdx++) {
       const type = listType[tIdx]
       let list = postData[type]
+      if (!list) continue
       if (!Array.isArray(list)) {
         list = list.split(',').filter(val => val !== '')
       }
@@ -138,14 +139,20 @@ class Edit extends React.Component {
           <Row gutter={16}>
             <Col span={4}>{i18n.t('black_white_list.black')}</Col>
             <Col span={12}>
-              <TagInput items={agent.black_list} onChange={this.onChangeBlackList.bind(this)} onClose={this.onCloseBlackList.bind(this)} />
+              <TagInput
+                items={agent.black_list}
+                onChange={this.onChangeBlackList.bind(this)}
+                onClose={this.onCloseBlackList.bind(this)} />
             </Col>
           </Row>
           <br />
           <Row gutter={16}>
             <Col span={4}>{i18n.t('black_white_list.white')}</Col>
             <Col span={12}>
-              <TagInput items={agent.white_list} onChange={this.onChangeWhiteList.bind(this)} onClose={this.onCloseWhiteList.bind(this)} />
+              <TagInput
+                items={agent.white_list}
+                onChange={this.onChangeWhiteList.bind(this)}
+                onClose={this.onCloseWhiteList.bind(this)} />
             </Col>
           </Row>
         </Modal>
