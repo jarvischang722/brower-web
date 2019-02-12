@@ -107,7 +107,7 @@ export default class List extends React.Component {
   })
 
   getColumns = () => {
-    const columns = ['username & name']
+    const columns = ['logo', 'username & name']
     columns.push(this.getActionsColumn())
     return columns
   }
