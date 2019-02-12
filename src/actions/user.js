@@ -9,60 +9,38 @@ const $profile = constructAsyncActionTypes(`${name}/PROFILE`)
 const $LOGOUT = `${name}/LOGOUT`
 const $SYNC_STATUS = `${name}/SYNC_STATUS`
 
-const types = [
-  $profile,
-  $LOGOUT,
-  $SYNC_STATUS,
-]
+const types = [$profile, $LOGOUT, $SYNC_STATUS]
 
 const login = (username, password) =>
   dispatch(
-    api.post('/user/login', { username, password }).then(
-      ({ body }) => {
-        if (localStorage) localStorage.setItem('t1bw_token', body.token)
-        return $profile.async(
-          api.get('/user/profile')
-        )
-      }
-    )
+    api.post('/user/login', { username, password }).then(({ body }) => {
+      if (localStorage) localStorage.setItem('t1bw_token', body.token)
+      return $profile.async(api.get('/user/profile'))
+    })
   )
 
-const recurrent = (reloadProfile) =>
+const recurrent = reloadProfile =>
   dispatch(
-    api.get('/user/recurrent').then(
-      ({ body }) => {
-        if (localStorage) localStorage.setItem('t1bw_token', body.token)
-        if (reloadProfile) {
-          return $profile.async(
-            api.get('/user/profile')
-          )
-        }
-        return false
+    api.get('/user/recurrent').then(({ body }) => {
+      if (localStorage) localStorage.setItem('t1bw_token', body.token)
+      if (reloadProfile) {
+        return $profile.async(api.get('/user/profile'))
       }
-    ),
+      return false
+    }),
     { silent: true }
   )
 
 const logout = () => {
   if (localStorage) localStorage.removeItem('t1bw_token')
-  return dispatch(
-    syncState($LOGOUT, null)
-  )
+  return dispatch(syncState($LOGOUT, null))
 }
 
-const profile = () =>
-  dispatch(
-    $profile.async(
-      api.get('/user/profile')
-    )
-  )
+const profile = () => dispatch($profile.async(api.get('/user/profile')))
 
-const update = (data) =>
-  dispatch(
-    $profile.async(
-      api.post('/user/profile', data)
-    )
-  )
+const update = data => dispatch($profile.async(api.post('/user/profile', data)))
+
+const deleteUser = data => dispatch(api.post('/user/delete', data))
 
 export default {
   name,
@@ -73,5 +51,6 @@ export default {
     logout,
     profile,
     update,
-  },
+    delete: deleteUser
+  }
 }

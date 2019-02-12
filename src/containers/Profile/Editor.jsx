@@ -46,7 +46,6 @@ export default class Profile extends React.Component {
         const isFormData = icon instanceof File
         if (isFormData) data.isFormData = true
         this.setState({ submitting: true })
-        alert(123456)
         save(data)
           .then(
             response => {

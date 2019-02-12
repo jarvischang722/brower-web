@@ -103,6 +103,9 @@ export default {
       success: {
         create: '子代理“%{name}”创建成功！',
         update: '子代理“%{name}”已保存！'
+      },
+      delete: {
+        confirm: '确定要删除[ %{username} ] ?'
       }
     }
   },

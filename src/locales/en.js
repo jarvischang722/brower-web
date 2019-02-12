@@ -104,6 +104,9 @@ export default {
       success: {
         create: 'create agent %{name} success!',
         update: 'upate agent %{name} success！'
+      },
+      delete: {
+        confirm: 'Are you sure remove the agent [ %{username} ] ?'
       }
     }
   },

@@ -8,7 +8,7 @@ import { AgentActions } from '../../actions'
 import { Section } from '../../components'
 import ListControl from './ListControl'
 import NewAgentModal from './NewAgentModal'
-
+import Delete from './Delete'
 @connect(
   ({ user, agents }) => {
     const { data, status } = agents
@@ -94,13 +94,14 @@ export default class List extends React.Component {
     key: 'actions',
     width: 200,
     className: 'align-center',
-    render: ({ id }) => {
+    render: ({ id,username }) => {
       const actions = []
       actions.push(
         <Link to={`/agents/${id}/browser`}>
-          <Icon type="ie" /> {i18n.t('actions.manage+browser.title')}
+          <Icon type="ie" /> {i18n.t('actions.manage')}
         </Link>
       )
+      actions.push(<Delete id={id} username={username} loadData={this.loadData}/>)
       return actions
     }
   })
