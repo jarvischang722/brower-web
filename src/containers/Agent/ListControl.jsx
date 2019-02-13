@@ -68,11 +68,14 @@ export default class ListControl extends React.Component {
         render: time => (time ? moment(time * 1000).format('YYYY-MM-DD HH:mm') : '-')
       },
       logo: {
-        title: i18n.t('profile.icon'),
         dataIndex: 'icon',
         width: 100,
         render: icon =>
-          icon ? <img src={this.generateIconUrl(icon)} style={{ width: 50, height: 50 }} /> : ''
+          icon ? (
+            <img alt={icon} src={this.generateIconUrl(icon)} style={{ width: 50, height: 50 }} />
+          ) : (
+            ''
+          )
       }
     }
     const result = []
