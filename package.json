@@ -33,6 +33,7 @@
     "moment": "^2.22.2",
     "prop-types": "^15.5.10",
     "react": "^16.0.0",
+    "react-beautiful-dnd": "^10.0.4",
     "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^16.0.0",
     "react-i18nify": "^1.8.7",
