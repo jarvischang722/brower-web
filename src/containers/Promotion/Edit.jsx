@@ -1,46 +1,25 @@
 import React from 'react'
-import moment from 'moment'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { PromotionActions } from '../../actions'
-
-// fake data generator
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k}`,
-    content: `item ${k}`
-  }))
+import Item from './Item'
+import { message } from 'antd'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
+
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
-
   return result
 }
 
-const grid = 8
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 ${grid}px 0 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-})
-
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  display: 'flex',
-  padding: grid,
-  overflow: 'auto'
+  // background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  display: 'grid',
+  padding: 6,
+  width: '100%'
 })
 
 @connect(
@@ -51,60 +30,91 @@ const getListStyle = isDraggingOver => ({
   }
 )
 export default class Edit extends React.Component {
+  static propTypes = {
+    list: T.func.isRequired,
+    updateSort: T.func.isRequired
+  }
+
   constructor(props) {
     super(props)
-    this.state = {
-      items: getItems(6)
-    }
-    this.propTypes = {
-      list: T.func.isRequired,
-      updateSort: T.func.isRequired
-    }
-
-    props.list().then(response => {
-      if (response) {
-        console.log(response)
-      }
-    })
-
     this.onDragEnd = this.onDragEnd.bind(this)
   }
+
+  state = {
+    items: [],
+    changedItems: []
+  }
+
+  componentDidMount() {
+    this.getItems()
+  }
+
+  getItems() {
+    this.props.list().then(response => {
+      if (response) {
+        const items = response.items
+        this.setState({ items })
+      }
+    })
+  }
+
   onDragEnd(result) {
-    // dropped outside the list
     if (!result.destination) {
       return
     }
-
     const items = reorder(this.state.items, result.source.index, result.destination.index)
+    const changedItems = this.compareItems(items, result.source.index, result.destination.index)
+    this.setState(
+      {
+        items,
+        changedItems
+      },
+      () => {
+        this.doSave()
+      }
+    )
+  }
 
-    this.setState({
-      items
+  compareItems(items, srcIdx, destIdx) {
+    const startIdx = srcIdx < destIdx ? srcIdx : destIdx
+    const endIdx = srcIdx > destIdx ? srcIdx : destIdx
+    const result = items.slice(startIdx, endIdx + 1)
+    for (let i = 0; i < result.length; i++) {
+      result[i].sort = startIdx + i
+    }
+    return result
+  }
+
+  doSave() {
+    const { items } = this.state
+    const postData = {
+      agentSortList: items.map((d,idx) => ({
+        userid: d.id,
+        sort: idx
+      }))
+    }
+    this.props.updateSort(postData).then(response => {
+      if (response.isUpdated) {
+        message.success('save success!')
+      } else {
+        message.error('save fail!')
+      }
     })
   }
 
-  // Normally you would want to split things out into separate components.
-  // But in this example everything is just done in one place for simplicity
   render() {
+    const { items } = this.state
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable" direction="horizontal">
+        <Droppable droppableId="droppable">
           {(provided, snapshot) => (
             <div
+              align="center"
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
               {...provided.droppableProps}>
-              {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
-                      {item.content}
-                    </div>
-                  )}
-                </Draggable>
+              {items.map((item, index) => (
+                <Item item={item} index={index} />
               ))}
               {provided.placeholder}
             </div>
